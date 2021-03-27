@@ -74,7 +74,7 @@ public interface CommunityConstant {
     String TOPIC_SHARE = "share";
 
     /**
-     * 系统用户ID
+     * 系统用户ID   这个是数据库中一定要存在的用户，用于发送系统通知。账号system，密码system，一般不登录这个账户，使用这个账户发私信会有bug
      */
     int SYSTEM_USER_ID = 1;
 
@@ -84,12 +84,14 @@ public interface CommunityConstant {
     String AUTHORITY_USER = "user";
 
     /**
-     * 权限: 管理员,数据库对应type  1
+     * 权限: 版主,数据库对应type  1
+     */
+    String AUTHORITY_MODERATOR = "moderator";
+
+    /**
+     * 权限: 管理员,数据库对应type  2
      */
     String AUTHORITY_ADMIN = "admin";
 
-    /**
-     * 权限: 版主,数据库对应type  2
-     */
-    String AUTHORITY_MODERATOR = "moderator";
+
 }
