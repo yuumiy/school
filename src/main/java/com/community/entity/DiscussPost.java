@@ -17,13 +17,16 @@ public class DiscussPost {
     @Field(type = FieldType.Integer)
     private int userId;
 
-    // 搜索帖子主要依据title、content
+    // 搜索博客主要依据title、content
     //存储的时候用analyzer分词器，搜索的时候用searchAnalyzer分词器
     @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String title;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String content;
+
+    @Field(type = FieldType.Integer)    //博客类型
+    private int kind;
 
     @Field(type = FieldType.Integer)   //0 普通 1 置顶
     private int type;
@@ -39,6 +42,20 @@ public class DiscussPost {
 
     @Field(type = FieldType.Double)
     private double score;
+
+    private String kindName;
+
+    public String getKindName() {
+        if(kind==1)
+            return "学习笔记";
+        if(kind==2)
+            return "问题讨论";
+        if(kind==3)
+            return "资料分享";
+        if(kind==4)
+            return "其他";
+        return null;
+    }
 
     public int getId() {
         return id;
@@ -112,6 +129,14 @@ public class DiscussPost {
         this.score = score;
     }
 
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+
     @Override
     public String toString() {
         return "DiscussPost{" +
@@ -119,6 +144,7 @@ public class DiscussPost {
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", kind=" + kind +
                 ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +

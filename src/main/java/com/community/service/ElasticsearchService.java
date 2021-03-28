@@ -28,7 +28,7 @@ import java.util.List;
 
 @Service
 public class ElasticsearchService {
-    //往ES存帖子相关数据，用到repository。数据高亮显示，用到template。
+    //往ES存博客相关数据，用到repository。数据高亮显示，用到template。
 
     @Autowired
     private DiscussPostRepository discussRepository;

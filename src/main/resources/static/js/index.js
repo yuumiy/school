@@ -14,11 +14,13 @@ function publish() {
 
     // 获取标题和内容
     var title = $("#recipient-name").val();
+    var select=$("#post-type option:selected");
+    var kind=select.val();
     var content = $("#message-text").val().replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
     // 发送异步请求(POST)
     $.post(
         CONTEXT_PATH + "/discuss/add",
-        {"title":title,"content":content},
+        {"title":title,"content":content,"kind":kind},
         function(data) {
             data = $.parseJSON(data);
             // 在提示框中显示返回消息

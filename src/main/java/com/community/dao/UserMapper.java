@@ -10,7 +10,7 @@ public interface UserMapper {
 
     User selectById(@Param("id")int id);
 
-    User selectByName(@Param("username")String username);
+    User selectByName(@Param("name")String name);
 
     User selectByEmail(@Param("email")String email);
 
@@ -22,4 +22,5 @@ public interface UserMapper {
 
     int updatePassword(@Param("id")int id,@Param("password") String password);
 
+    User selectByUserName(@Param("username")String username);
 }

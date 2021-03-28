@@ -278,7 +278,7 @@ public class UserController implements CommunityConstant {
         return "/site/profile";
     }
 
-   //跳转到我的帖子页面
+   //跳转到我的博客页面
     @RequestMapping(path = "/mypost/{userId}", method = RequestMethod.GET)
     public String toMyPost(@PathVariable("userId") int userId,Model model, Page page,
                            @RequestParam(name = "infoMode", defaultValue = "1") int infoMode) {
@@ -294,7 +294,7 @@ public class UserController implements CommunityConstant {
         page.setPath("/user/mypost/"+userId);
 
 
-        // 查询某用户发布的帖子
+        // 查询某用户发布的博客
         List<DiscussPost> discussPosts = discussPostService.findDiscussPosts(user.getId(), page.getOffset(), page.getLimit(),0);
         List<Map<String, Object>> list = new ArrayList<>();
         if (discussPosts != null) {
@@ -309,7 +309,7 @@ public class UserController implements CommunityConstant {
             }
             model.addAttribute("discussPosts", list);
         }
-        // 帖子数量
+        // 博客数量
         int postCount = discussPostService.findDiscussPostRows(user.getId());
         model.addAttribute("postCount", postCount);
         model.addAttribute("infoMode", infoMode);
@@ -340,7 +340,7 @@ public class UserController implements CommunityConstant {
                 Map<String, Object> map = new HashMap<>();
                 map.put("comment", comment);
 
-                // 根据实体 id 查询对应的帖子标题
+                // 根据实体 id 查询对应的博客标题
                 String discussPostTitle = discussPostService.findDiscussPostById(comment.getEntityId()).getTitle();
                 map.put("discussPostTitle", discussPostTitle);
 

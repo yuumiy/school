@@ -74,7 +74,7 @@ public class AlphaService {
         user.setCreateTime(new Date());
         userMapper.insertUser(user);
 
-        // 新增帖子
+        // 新增博客
         DiscussPost post = new DiscussPost();
         post.setUserId(user.getId());
         post.setTitle("Hello");
@@ -105,7 +105,7 @@ public class AlphaService {
                 user.setCreateTime(new Date());
                 userMapper.insertUser(user);
 
-                // 新增帖子
+                // 新增博客
                 DiscussPost post = new DiscussPost();
                 post.setUserId(user.getId());
                 post.setTitle("你好");

@@ -102,7 +102,7 @@ public class EventConsumer implements CommunityConstant {
         messageService.addMessage(message);
     }
 
-    // 消费发帖事件
+    // 消费发博客事件
     @KafkaListener(topics = {TOPIC_PUBLISH})
     public void handlePublishMessage(ConsumerRecord record) {
         if (record == null || record.value() == null) {
@@ -120,7 +120,7 @@ public class EventConsumer implements CommunityConstant {
         elasticsearchService.saveDiscussPost(post);
     }
 
-    // 消费删帖事件
+    // 消费删博客事件
     @KafkaListener(topics = {TOPIC_DELETE})
     public void handleDeleteMessage(ConsumerRecord record) {
         if (record == null || record.value() == null) {

@@ -37,4 +37,4 @@ F:\JavaTools\kafka_2.12-2.3.0>bin\windows\kafka-server-start.bat config\server.p
 
 版主：bbb　　　密码:123456　　　置顶、加精权限
 
-管理员：ccc 　　密码:123456　　　置顶、加精、删帖权限
+管理员：ccc 　　密码:123456　　　置顶、加精、删博客权限

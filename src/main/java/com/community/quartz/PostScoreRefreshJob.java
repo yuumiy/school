@@ -53,22 +53,22 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
         BoundSetOperations operations = redisTemplate.boundSetOps(redisKey);
 
         if (operations.size() == 0) {
-            logger.info("[任务取消] 没有需要刷新的帖子!");
+            logger.info("[任务取消] 没有需要刷新的博客!");
             return;
         }
 
-        logger.info("[任务开始] 正在刷新帖子分数: " + operations.size());
+        logger.info("[任务开始] 正在刷新博客分数: " + operations.size());
         while (operations.size() > 0) {
             this.refresh((Integer) operations.pop());
         }
-        logger.info("[任务结束] 帖子分数刷新完毕!");
+        logger.info("[任务结束] 博客分数刷新完毕!");
     }
 
     private void refresh(int postId) {
         DiscussPost post = discussPostService.findDiscussPostById(postId);
 
         if (post == null) {
-            logger.error("该帖子不存在: id = " + postId);
+            logger.error("该博客不存在: id = " + postId);
             return;
         }
 
@@ -76,16 +76,16 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
         boolean wonderful = post.getStatus() == 1;
         // 评论数量
         int commentCount = post.getCommentCount();
-        // 帖子点赞数量(不包含帖子中的评论)
+        // 博客点赞数量(不包含博客中的评论)
         long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, postId);
 
         // 计算权重
         double w = (wonderful ? 75 : 0) + commentCount * 10 + likeCount * 2;
-        // 分数 = 帖子权重 + 距离天数  log函数特点：随着x增加，y增加越来越慢
-        //getTime()得到long型，越新发布的帖子越有可能成为热帖
+        // 分数 = 博客权重 + 距离天数  log函数特点：随着x增加，y增加越来越慢
+        //getTime()得到long型，越新发布的博客越有可能成为热博客
         double score = Math.log10(Math.max(w, 1))
                 + (post.getCreateTime().getTime() - epoch.getTime()) / (1000 * 3600 * 24);
-        // 更新帖子分数
+        // 更新博客分数
         discussPostService.updateScore(postId, score);
         // 同步搜索数据
         post.setScore(score);

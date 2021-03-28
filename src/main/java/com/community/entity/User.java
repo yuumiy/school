@@ -6,10 +6,12 @@ public class User {
 
     private int id;
     private String username;
+    private String name;
+    private int role;
     private String password;
     private String salt;
     private String email;
-    //0-普通用户    1-超级管理员    2-版主
+    //0-普通用户    1-版主    2-管理员
     private int type;
     private int status;
     private String activationCode;
@@ -96,11 +98,29 @@ public class User {
         this.createTime = createTime;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", role=" + role +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", email='" + email + '\'' +
@@ -111,5 +131,4 @@ public class User {
                 ", createTime=" + createTime +
                 '}';
     }
-
 }

@@ -64,7 +64,7 @@ public class LikeController implements CommunityConstant {
         }
 
         if(entityType == ENTITY_TYPE_POST) {
-            // 计算帖子分数
+            // 计算博客分数
             String redisKey = RedisKeyUtil.getPostScoreKey();
             redisTemplate.opsForSet().add(redisKey, postId);
         }

@@ -71,6 +71,7 @@ public class LoginController implements CommunityConstant {
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
             model.addAttribute("confirmPasswordMsg", map.get("confirmPasswordMsg"));
             model.addAttribute("emailMsg", map.get("emailMsg"));
+            model.addAttribute("nameMsg", map.get("nameMsg"));
             return "/site/register";
         }
     }

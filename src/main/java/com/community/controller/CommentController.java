@@ -61,9 +61,9 @@ public class CommentController implements CommunityConstant {
         }
         eventProducer.fireEvent(event);
 
-        //触发评论事件后，还要触发发帖事件，因为帖子评论数量改变
+        //触发评论事件后，还要触发发博客事件，因为博客评论数量改变
         if (comment.getEntityType() == ENTITY_TYPE_POST) {
-            // 触发发帖事件
+            // 触发发博客事件
             event = new Event()
                     .setTopic(TOPIC_PUBLISH)
                     .setUserId(comment.getUserId())
@@ -71,7 +71,7 @@ public class CommentController implements CommunityConstant {
                     .setEntityId(discussPostId);
             eventProducer.fireEvent(event);
 
-            // 计算帖子分数
+            // 计算博客分数
             String redisKey = RedisKeyUtil.getPostScoreKey();
             redisTemplate.opsForSet().add(redisKey, discussPostId);
         }

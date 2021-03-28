@@ -11,6 +11,7 @@ import com.community.util.CommunityUtil;
 import com.community.util.HostHolder;
 import com.community.util.RedisKeyUtil;
 import com.community.entity.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -49,22 +50,26 @@ public class DiscussPostController implements CommunityConstant {
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addDiscussPost(String title, String content) {
+    public String addDiscussPost(String title, String content,String kind) {
         User user = hostHolder.getUser();
         if (user == null) {
             return CommunityUtil.getJSONString(403, "你还没有登录哦!");
+        }
+        if(StringUtils.isBlank(title) || StringUtils.isBlank(content)){
+            return CommunityUtil.getJSONString(1, "标题或内容不能为空!");
         }
 
         DiscussPost post = new DiscussPost();
         //其他不设置的属性，默认值为0
         post.setUserId(user.getId());
         post.setTitle(title);
+        post.setKind(Integer.parseInt(kind));
         post.setContent(content);
         post.setCreateTime(new Date());
         //这句代码返回的是一个int型，不用拿参数接收也可以执行
         discussPostService.addDiscussPost(post);
 
-        // 触发发帖事件
+        // 触发发博客事件
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(user.getId())
@@ -72,7 +77,7 @@ public class DiscussPostController implements CommunityConstant {
                 .setEntityId(post.getId());
         eventProducer.fireEvent(event);
 
-        // 计算帖子分数。Set不允许重复数据
+        // 计算博客分数。Set不允许重复数据
         String redisKey = RedisKeyUtil.getPostScoreKey();
         redisTemplate.opsForSet().add(redisKey, post.getId());
 
@@ -84,7 +89,7 @@ public class DiscussPostController implements CommunityConstant {
     // 方法调用前,SpringMVC会自动实例化Model和Page,并将Page注入Model.
     // 所以,在thymeleaf中可以直接访问Page对象中的数据.
     public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, Page page) {
-        // 帖子
+        // 博客
         DiscussPost post = discussPostService.findDiscussPostById(discussPostId);
         model.addAttribute("post", post);
         // 作者
@@ -103,12 +108,12 @@ public class DiscussPostController implements CommunityConstant {
         page.setPath("/discuss/detail/" + discussPostId);
         page.setRows(post.getCommentCount());
 
-        // 评论: 给帖子的评论
+        // 评论: 给博客的评论
         // 回复: 给评论的评论
-        // 评论列表 commentList找到帖子的评论，commentVoList是对帖子评论的具体信息进行查找
+        // 评论列表 commentList找到博客的评论，commentVoList是对博客评论的具体信息进行查找
         List<Comment> commentList = commentService.findCommentsByEntity(
                 ENTITY_TYPE_POST, post.getId(), page.getOffset(), page.getLimit());
-        // 评论VO列表   VO是值对象     commentVoList里面放的是一条帖子的多个评论，map对象代表一条评论以及对应回复
+        // 评论VO列表   VO是值对象     commentVoList里面放的是一条博客的多个评论，map对象代表一条评论以及对应回复
         List<Map<String, Object>> commentVoList = new ArrayList<>();
         if (commentList != null) {
             for (Comment comment : commentList) {
@@ -173,7 +178,7 @@ public class DiscussPostController implements CommunityConstant {
     public String setTop(int id) {
         discussPostService.updateType(id, 1);
 
-        // 触发发帖事件。因为要将数据存到ES中，这样用ES就可以进行搜索
+        // 触发发博客事件。因为要将数据存到ES中，这样用ES就可以进行搜索
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(hostHolder.getUser().getId())
@@ -190,7 +195,7 @@ public class DiscussPostController implements CommunityConstant {
     public String setUnTop(int id) {
         discussPostService.updateType(id, 0);
 
-        // 触发发帖事件。因为要将数据存到ES中，这样用ES就可以进行搜索
+        // 触发发博客事件。因为要将数据存到ES中，这样用ES就可以进行搜索
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(hostHolder.getUser().getId())
@@ -207,7 +212,7 @@ public class DiscussPostController implements CommunityConstant {
     public String setWonderful(int id) {
         discussPostService.updateStatus(id, 1);
 
-        // 触发发帖事件
+        // 触发发博客事件
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(hostHolder.getUser().getId())
@@ -215,7 +220,7 @@ public class DiscussPostController implements CommunityConstant {
                 .setEntityId(id);
         eventProducer.fireEvent(event);
 
-        // 计算帖子分数
+        // 计算博客分数
         String redisKey = RedisKeyUtil.getPostScoreKey();
         redisTemplate.opsForSet().add(redisKey, id);
 
@@ -228,7 +233,7 @@ public class DiscussPostController implements CommunityConstant {
     public String setUnWonderful(int id) {
         discussPostService.updateStatus(id, 0);
 
-        // 触发发帖事件
+        // 触发发博客事件
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(hostHolder.getUser().getId())
@@ -246,7 +251,7 @@ public class DiscussPostController implements CommunityConstant {
         discussPostService.updateStatus(id, 2);
         commentService.updateStatus(id,1);
 
-        // 触发删帖事件
+        // 触发删博客事件
         Event event = new Event()
                 .setTopic(TOPIC_DELETE)
                 .setUserId(hostHolder.getUser().getId())

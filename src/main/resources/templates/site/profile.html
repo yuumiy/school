@@ -25,7 +25,7 @@
 							<a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{|/user/profile/${user.id}|}">个人信息</a>
 						</li>
 						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${loginUser.id!=user.id?'它的帖子':'我的帖子'}">我的帖子</a>
+							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${loginUser.id!=user.id?'它的博客':'我的博客'}">我的博客</a>
 						</li>
 						<li class="nav-item">
 							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="${loginUser.id!=user.id?'它的评论':'我的评论'}">我的评论</a>

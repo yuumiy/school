@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface DiscussPostMapper {
 
-    //orderMode排序模式，默认为0。1是按帖子热度排序
+    //orderMode排序模式，默认为0。1是按博客热度排序
     List<DiscussPost> selectDiscussPosts(
             @Param("userId") int userId, @Param("offset")int offset, @Param("limit")int limit, @Param("orderMode")int orderMode);
 

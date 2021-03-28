@@ -9,7 +9,7 @@ public class Event {
     private String topic;
     //事件是由谁触发的  userId
     private int userId;
-    //事件实体的类型，是帖子、评论还是用户  entityType
+    //事件实体的类型，是博客、评论还是用户  entityType
     private int entityType;
     //事件实体的id  entityId
     private int entityId;

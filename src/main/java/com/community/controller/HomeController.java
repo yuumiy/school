@@ -33,12 +33,12 @@ public class HomeController implements CommunityConstant {
     private LikeService likeService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    //查询全部帖子，并显示在首页上
+    //查询全部博客，并显示在首页上
     public String getIndexPage(Model model, Page page,
                                @RequestParam(name = "orderMode", defaultValue = "0") int orderMode) {
         // 方法调用前,SpringMVC会自动实例化Model和Page,并将Page注入Model.
         // 所以,在thymeleaf中可以直接访问Page对象中的数据.
-        //最新、最热贴都是置顶具有优先级
+        //最新、最热博客都是置顶具有优先级
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index?orderMode="+orderMode);
 

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/global.css}" />
 	<link rel="stylesheet" th:href="@{/css/discuss-detail.css}" />
-	<title>帖子详情</title>
+	<title>博客详情</title>
 </head>
 <body>
 	<div class="nk-container">
@@ -18,7 +18,7 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<!-- 帖子详情 -->
+			<!-- 博客详情 -->
 			<div class="container">
 				<!-- 标题 -->
 				<h6 class="mb-4">
@@ -51,7 +51,7 @@
 									</a>
 								</li>
 								<li class="d-inline ml-2">|</li>
-								<li class="d-inline ml-2"><a href="#replyform" class="text-primary">回帖 <i th:text="${post.commentCount}">7</i></a></li>
+								<li class="d-inline ml-2"><a href="#replyform" class="text-primary">回复 <i th:text="${post.commentCount}">7</i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -66,19 +66,19 @@
 					跟左程云老师学算法，不仅能解决以上所有问题，还能在短时间内得到最大程度的提升！！！
 				</div>
 			</div>
-			<!-- 回帖 -->
+			<!-- 回复 -->
 			<div class="container mt-3">
-				<!-- 回帖数量 -->
+				<!-- 回复数量 -->
 				<!--i标签之前已经去掉样式，因此就是普通的文字-->
 				<div class="row">
 					<div class="col-8">
-						<h6><b class="square"></b> <i th:text="${post.commentCount}">30</i>条回帖</h6>
+						<h6><b class="square"></b> <i th:text="${post.commentCount}">30</i>条回复</h6>
 					</div>
 					<div class="col-4 text-right">
-						<a href="#replyform" class="btn btn-primary btn-sm">&nbsp;&nbsp;回&nbsp;&nbsp;帖&nbsp;&nbsp;</a>
+						<a href="#replyform" class="btn btn-primary btn-sm">&nbsp;&nbsp;回&nbsp;&nbsp;复&nbsp;&nbsp;</a>
 					</div>
 				</div>
-				<!-- 回帖列表 -->
+				<!-- 回复列表 -->
 				<ul class="list-unstyled mt-4">
 					<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="cvo:${comments}" th:id="|huifu1-${page.offset + cvoStat.count}|">
 						<a th:href="@{|/user/profile/${cvo.user.id}|}">
@@ -167,7 +167,7 @@
 
 				</nav>			
 			</div>
-			<!-- 回帖输入框 -->
+			<!-- 回复输入框 -->
 			<div class="container mt-3">
 				<form class="replyform" method="post" th:action="@{|/comment/add/${post.id}|}">
 					<p class="mt-3">
@@ -177,7 +177,7 @@
 						<input type="hidden" name="entityId" th:value="${post.id}">
 					</p>
 					<p class="text-right">
-						<button type="submit" class="btn btn-primary btn-sm">&nbsp;&nbsp;回&nbsp;&nbsp;帖&nbsp;&nbsp;</button>
+						<button type="submit" class="btn btn-primary btn-sm">&nbsp;&nbsp;回&nbsp;&nbsp;复&nbsp;&nbsp;</button>
 					</p>
 				</form>
 			</div>

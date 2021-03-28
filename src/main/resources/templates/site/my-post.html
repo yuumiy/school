@@ -6,7 +6,7 @@
 	<link rel="icon" th:href="@{/img/icon.png}"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/global.css}" />
-	<title>我的帖子</title>
+	<title>我的博客</title>
 </head>
 <body>
 	<div class="nk-container">
@@ -25,7 +25,7 @@
 							<a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{|/user/profile/${user.id}|}">个人信息</a>
 						</li>
 						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${loginUser.id!=user.id?'它的帖子':'我的帖子'}">我的帖子</a>
+							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${loginUser.id!=user.id?'它的博客':'我的博客'}">我的博客</a>
 						</li>
 						<li class="nav-item">
 							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="${loginUser.id!=user.id?'它的评论':'我的评论'}">我的评论</a>
@@ -33,15 +33,15 @@
 					</ul>
 					<a th:href="@{|/user/profile/${user.id}|}" class="text-muted position-absolute rt-0" th:if="${loginUser.id==user.id}">返回个人主页&gt;</a>
 				</div>
-				<!-- 我的帖子 -->
+				<!-- 我的博客 -->
 				<div class="mt-4">
-					<h6><b class="square"></b> 发布的帖子(<i th:text="${postCount}"></i>)</h6>
+					<h6><b class="square"></b> 发布的博客(<i th:text="${postCount}"></i>)</h6>
 					<ul class="list-unstyled mt-4 pl-3 pr-3">
 						<li class="border-bottom pb-3 mt-4" th:each="map:${discussPosts}">
 							<div class="font-size-16 text-info">
 								<a th:href="@{|/discuss/detail/${map.post.id}|}" class="text-info" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
 								<span class="float-right font-size-12 text-muted">
-                                赞 <i class="mr-2" th:utext="${map.likeCount}"></i>|&nbsp;&nbsp;回帖 <i class="mr-2" th:utext="${map.post.commentCount}"></i>
+                                赞 <i class="mr-2" th:utext="${map.likeCount}"></i>|&nbsp;&nbsp;回复 <i class="mr-2" th:utext="${map.post.commentCount}"></i>
 									&nbsp;发布于 <b
 										th:text="${#dates.format(map.post.createTime, 'yyyy-MM-dd HH:mm:ss')}"></b>
                             </span>

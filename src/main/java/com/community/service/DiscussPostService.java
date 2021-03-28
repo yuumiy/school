@@ -38,16 +38,16 @@ public class DiscussPostService {
 
     // Caffeine核心接口: Cache, LoadingCache, AsyncLoadingCache
 
-    // 帖子列表缓存。缓存都是按key缓存value
+    // 博客列表缓存。缓存都是按key缓存value
     private LoadingCache<String, List<DiscussPost>> postListCache;
 
-    // 帖子总数缓存
+    // 博客总数缓存
     private LoadingCache<Integer, Integer> postRowsCache;
 
     //@PostConstruct表示对象创建的时候会执行这个方法
     @PostConstruct
     public void init() {
-        // 初始化帖子列表缓存
+        // 初始化博客列表缓存
         postListCache = Caffeine.newBuilder()
                 .maximumSize(maxSize)
                 .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)
@@ -73,7 +73,7 @@ public class DiscussPostService {
                         return discussPostMapper.selectDiscussPosts(0, offset, limit, 1);
                     }
                 });
-        // 初始化帖子总数缓存
+        // 初始化博客总数缓存
         postRowsCache = Caffeine.newBuilder()
                 .maximumSize(maxSize)
                 .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)

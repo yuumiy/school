@@ -26,7 +26,7 @@
 							<input type="email"
 								   th:class="|form-control ${emailMsg!=null?'is-invalid':''}|"
 								   th:value="${user!=null?user.email:''}"
-								   id="email" name="email" placeholder="请输入您的邮箱!" required>
+								   id="email" name="email" placeholder="请输入您的邮箱！" required>
 							<div class="invalid-feedback" th:text="${emailMsg}">
 								该邮箱已注册!
 							</div>
@@ -36,7 +36,7 @@
 						<label for="code" class="col-sm-2 col-form-label text-right">验证码:</label>
 						<div class="col-sm-6">
 							<input type="text" th:class="|form-control ${codeMsg!=null?'is-invalid':''}|"
-								   id="code" name="code" placeholder="请输入验证码!">
+								   id="code" name="code" placeholder="请输入验证码！">
 							<div class="invalid-feedback" th:text="${codeMsg}">
 								验证码不正确!
 							</div>

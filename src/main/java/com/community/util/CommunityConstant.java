@@ -29,7 +29,7 @@ public interface CommunityConstant {
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 100;
 
     /**
-     * 实体类型: 帖子
+     * 实体类型: 博客
      */
     int ENTITY_TYPE_POST = 1;
 
@@ -59,12 +59,12 @@ public interface CommunityConstant {
     String TOPIC_FOLLOW = "follow";
 
     /**
-     * 主题: 发帖
+     * 主题: 发博客
      */
     String TOPIC_PUBLISH = "publish";
 
     /**
-     * 主题: 删帖
+     * 主题: 删博客
      */
     String TOPIC_DELETE = "delete";
 

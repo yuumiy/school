@@ -32,7 +32,7 @@ public class SearchController implements CommunityConstant {
     // search?keyword=xxx
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public String search(String keyword, Page page, Model model) {
-        // 搜索帖子
+        // 搜索博客
         org.springframework.data.domain.Page<DiscussPost> searchResult =
                 elasticsearchService.searchDiscussPost(keyword, page.getCurrent() - 1, page.getLimit());
         // 聚合数据
@@ -40,7 +40,7 @@ public class SearchController implements CommunityConstant {
         if (searchResult != null) {
             for (DiscussPost post : searchResult) {
                 Map<String, Object> map = new HashMap<>();
-                // 帖子
+                // 博客
                 map.put("post", post);
                 // 作者
                 map.put("user", userService.findUserById(post.getUserId()));

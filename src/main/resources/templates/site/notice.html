@@ -51,7 +51,7 @@
 								<a th:href="@{/notice/detail/comment}">
 									用户
 									<i th:utext="${commentNotice.user.username}">user</i>
-									评论了你的<b th:text="${commentNotice.entityType==1?'帖子':'回复'}">帖子</b> ...
+									评论了你的<b th:text="${commentNotice.entityType==1?'博客':'回复'}">博客</b> ...
 								</a>
 								<ul class="d-inline font-size-12 float-right">
 									<li class="d-inline ml-2"><span class="text-primary">共 <i th:text="${commentNotice.count}">3</i> 条会话</span></li>
@@ -73,7 +73,7 @@
 								<a th:href="@{/notice/detail/like}">
 									用户
 									<i th:utext="${likeNotice.user.username}">user</i>
-									点赞了你的<b th:text="${likeNotice.entityType==1?'帖子':'回复'}">帖子</b> ...
+									点赞了你的<b th:text="${likeNotice.entityType==1?'博客':'回复'}">博客</b> ...
 								</a>
 								<ul class="d-inline font-size-12 float-right">
 									<li class="d-inline ml-2"><span class="text-primary">共 <i th:text="${likeNotice.count}">3</i> 条会话</span></li>
