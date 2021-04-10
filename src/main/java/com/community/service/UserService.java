@@ -235,8 +235,8 @@ public class UserService implements CommunityConstant {
         return map;
     }
 
-    public User findUserByName(String username) {
-        return userMapper.selectByUserName(username);
+    public User findUserByName(String name) {
+        return userMapper.selectByName(name);
     }
 
     // 1.优先从缓存中取值
@@ -270,8 +270,6 @@ public class UserService implements CommunityConstant {
             public String getAuthority() {
                 switch (user.getType()) {
                     case 1:
-                        return AUTHORITY_MODERATOR;
-                    case 2:
                         return AUTHORITY_ADMIN;
                     default:
                         return AUTHORITY_USER;

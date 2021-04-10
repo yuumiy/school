@@ -50,7 +50,7 @@
 							<div>
 								<a th:href="@{/notice/detail/comment}">
 									用户
-									<i th:utext="${commentNotice.user.username}">user</i>
+									<i th:utext="${commentNotice.user.name}">user</i>
 									评论了你的<b th:text="${commentNotice.entityType==1?'博客':'回复'}">博客</b> ...
 								</a>
 								<ul class="d-inline font-size-12 float-right">
@@ -72,7 +72,7 @@
 							<div>
 								<a th:href="@{/notice/detail/like}">
 									用户
-									<i th:utext="${likeNotice.user.username}">user</i>
+									<i th:utext="${likeNotice.user.name}">user</i>
 									点赞了你的<b th:text="${likeNotice.entityType==1?'博客':'回复'}">博客</b> ...
 								</a>
 								<ul class="d-inline font-size-12 float-right">
@@ -94,7 +94,7 @@
 							<div>
 								<a th:href="@{/notice/detail/follow}">
 									用户
-									<i th:utext="${followNotice.user.username}">user</i>
+									<i th:utext="${followNotice.user.name}">user</i>
 									关注了你 ...
 								</a>
 								<ul class="d-inline font-size-12 float-right">

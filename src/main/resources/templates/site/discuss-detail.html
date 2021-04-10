@@ -28,9 +28,9 @@
 					<div class="float-right">
 						<input type="hidden" id="postId" th:value="${post.id}">
 						<button type="button" th:class="|btn ${post.type==1?'btn-secondary':'btn-danger'} btn-sm|" id="topBtn"
-								th:text="${post.type==1?'已置顶':'置顶'}" sec:authorize="hasAnyAuthority('moderator')">置顶</button>
+								th:text="${post.type==1?'已置顶':'置顶'}" sec:authorize="hasAnyAuthority('admin')">置顶</button>
 						<button type="button" th:class="|btn ${post.status==1?'btn-secondary':'btn-danger'} btn-sm|" id="wonderfulBtn"
-								th:text="${post.status==1?'已加精':'加精'}" sec:authorize="hasAnyAuthority('moderator')">加精</button>
+								th:text="${post.status==1?'已加精':'加精'}" sec:authorize="hasAnyAuthority('admin')">加精</button>
 						<button type="button" class="btn btn-danger btn-sm" id="deleteBtn"
 								th:disabled="${post.status==2}" sec:authorize="hasAnyAuthority('admin')">删除</button>
 					</div>
@@ -42,7 +42,7 @@
 					</a>
 					<img th:src="${user.headerUrl}" th:if="${loginUser==null}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 					<div class="media-body">
-						<div class="mt-0 text-warning" th:utext="${user.username}">寒江雪</div>
+						<div class="mt-0 text-warning" th:utext="${user.name}">寒江雪</div>
 						<div class="text-muted mt-3">
 							发布于 <b th:text="${#dates.format(post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 							<ul class="d-inline float-right">
@@ -87,7 +87,7 @@
 						</a>
 						<div class="media-body">
 							<div class="mt-0">
-								<span class="font-size-12 text-success" th:utext="${cvo.user.username}">掉脑袋切切</span>
+								<span class="font-size-12 text-success" th:utext="${cvo.user.name}">掉脑袋切切</span>
 								<span class="badge badge-secondary float-right floor">
 									<i th:text="${page.offset + cvoStat.count}">1</i>#
 								</span>
@@ -112,11 +112,11 @@
 								<li class="pb-3 pt-3 mb-3 border-bottom" th:each="rvo:${cvo.replys}">
 									<div>
 										<span th:if="${rvo.target==null}">
-											<b class="text-info" th:text="${rvo.user.username}">寒江雪</b>:&nbsp;&nbsp;
+											<b class="text-info" th:text="${rvo.user.name}">寒江雪</b>:&nbsp;&nbsp;
 										</span>
 										<span th:if="${rvo.target!=null}">
-											<i class="text-info" th:text="${rvo.user.username}">Sissi</i> 回复
-											<b class="text-info" th:text="${rvo.target.username}">寒江雪</b>:&nbsp;&nbsp;
+											<i class="text-info" th:text="${rvo.user.name}">Sissi</i> 回复
+											<b class="text-info" th:text="${rvo.target.name}">寒江雪</b>:&nbsp;&nbsp;
 										</span>
 										<span th:utext="${rvo.reply.content}">这个是直播时间哈，觉得晚的话可以直接看之前的完整录播的~</span>
 									</div>
@@ -134,7 +134,7 @@
 										<div th:id="|huifu-${rvoStat.count}|" class="mt-4 collapse">
 											<form method="post" th:action="@{|/comment/add/${post.id}|}">
 												<div>
-													<input type="text" class="input-size" name="content" th:placeholder="|回复${rvo.user.username}|" required/>
+													<input type="text" class="input-size" name="content" th:placeholder="|回复${rvo.user.name}|" required/>
 													<input type="hidden" name="entityType" value="2">
 													<input type="hidden" name="entityId" th:value="${cvo.comment.id}">
 													<input type="hidden" name="targetId" th:value="${rvo.user.id}">

@@ -51,7 +51,7 @@
 
     <insert id="insertDiscussPost" parameterType="DiscussPost" keyProperty="id">
         insert into discuss_post(<include refid="insertFields"></include>)
-        values(#{userId},#{title},#{kind},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+        values(#{userId},#{title},#{kind},#{category},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
     </insert>
 
     <select id="selectDiscussPostById" resultType="DiscussPost">

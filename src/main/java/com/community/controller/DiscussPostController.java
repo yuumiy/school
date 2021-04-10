@@ -53,7 +53,7 @@ public class DiscussPostController implements CommunityConstant {
     public String addDiscussPost(String title, String content,String kind) {
         User user = hostHolder.getUser();
         if (user == null) {
-            return CommunityUtil.getJSONString(403, "你还没有登录哦!");
+            return CommunityUtil.getJSONString(403, "您还没有登录哦!");
         }
         if(StringUtils.isBlank(title) || StringUtils.isBlank(content)){
             return CommunityUtil.getJSONString(1, "标题或内容不能为空!");
