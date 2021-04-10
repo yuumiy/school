@@ -37,9 +37,10 @@
 				</h6>
 				<!-- 作者 -->
 				<div class="media pb-3 border-bottom">
-					<a th:href="@{|/user/profile/${user.id}|}">
-						<img th:src="${user.headerUrl}" class="align-self-start mr-4 rounded-circle user-header" alt="用户头像" >
+					<a th:href="@{|/user/profile/${user.id}|}" th:if="${loginUser!=null}">
+						<img th:src="${user.headerUrl}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 					</a>
+					<img th:src="${user.headerUrl}" th:if="${loginUser==null}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 					<div class="media-body">
 						<div class="mt-0 text-warning" th:utext="${user.username}">寒江雪</div>
 						<div class="text-muted mt-3">

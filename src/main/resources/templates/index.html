@@ -79,7 +79,7 @@
 							<a th:class="|nav-link ${orderMode==4?'active':''}|" th:href="@{/index(orderMode=4)}">资料分享</a>
 						</li>
 						<li class="nav-item">
-							<a th:class="|nav-link ${orderMode==5?'active':''}|" th:href="@{/index(orderMode=5)}">其他</a>
+							<a th:class="|nav-link ${orderMode==5?'active':''}|" th:href="@{/index(orderMode=5)}">教学安排</a>
 						</li>
 					</ul>
 
@@ -107,7 +107,7 @@
 											<option value="1">学习笔记</option>
 											<option value="2">问题讨论</option>
 											<option value="3">资料分享</option>
-											<option value="4">其他</option>
+											<option value="4">教学安排</option>
 										</select>
 									</div>
 									<div class="form-group">
@@ -140,19 +140,22 @@
 				<!-- 博客列表 map代表一个博客 -->
 				<ul class="list-unstyled">
 					<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
-						<a th:href="@{|/user/profile/${map.user.id}|}">
+						<a th:href="@{|/user/profile/${map.user.id}|}" th:if="${loginUser!=null}">
 							<img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 						</a>
+						<img th:src="${map.user.headerUrl}" th:if="${loginUser==null}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 						<div class="media-body">
 							<h6 class="mt-0 mb-3">
 								<!--如果跳转路径有变量，要加上||。注意取变量是用$-->
 								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<span href="#" th:utext="${map.post.kindName}" style="font-weight:bold;font-size: 13px"></span>
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" style="font-weight:bold;font-size: 13px"></a>
 								<span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
 								<span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">精华</span>
 							</h6>
 							<div class="text-muted font-size-12">
-								<u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
+								<u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>&nbsp;
+								<span class="badge badge-secondary bg-success" th:if="${map.post.category==0}">学生帖</span>
+								<span class="badge badge-secondary bg-success" th:if="${map.post.category==1}">老师帖</span>
 								<ul class="d-inline float-right">
 									<li class="d-inline ml-2">赞 <span th:text="${map.likeCount}">11</span></li>
 									<li class="d-inline ml-2">|</li>

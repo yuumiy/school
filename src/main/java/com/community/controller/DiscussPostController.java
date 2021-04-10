@@ -61,6 +61,11 @@ public class DiscussPostController implements CommunityConstant {
 
         DiscussPost post = new DiscussPost();
         //其他不设置的属性，默认值为0
+        if(user.getRole()==0){
+            post.setCategory(0);
+        }else {
+            post.setCategory(1);
+        }
         post.setUserId(user.getId());
         post.setTitle(title);
         post.setKind(Integer.parseInt(kind));

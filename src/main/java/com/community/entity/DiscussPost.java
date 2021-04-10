@@ -28,6 +28,9 @@ public class DiscussPost {
     @Field(type = FieldType.Integer)    //博客类型
     private int kind;
 
+    @Field(type = FieldType.Integer)    //学生帖 or 老师贴
+    private int category;
+
     @Field(type = FieldType.Integer)   //0 普通 1 置顶
     private int type;
 
@@ -53,8 +56,12 @@ public class DiscussPost {
         if(kind==3)
             return "资料分享";
         if(kind==4)
-            return "其他";
+            return "教学安排";
         return null;
+    }
+
+    public void setKindName(String kindName) {
+        this.kindName = kindName;
     }
 
     public int getId() {
@@ -137,6 +144,15 @@ public class DiscussPost {
         this.kind = kind;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+
     @Override
     public String toString() {
         return "DiscussPost{" +
@@ -145,11 +161,13 @@ public class DiscussPost {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", kind=" + kind +
+                ", category=" + category +
                 ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +
                 ", commentCount=" + commentCount +
                 ", score=" + score +
+                ", kindName='" + kindName + '\'' +
                 '}';
     }
 }

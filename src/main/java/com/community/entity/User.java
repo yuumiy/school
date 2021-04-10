@@ -7,6 +7,7 @@ public class User {
     private int id;
     private String username;
     private String name;
+    private int sex;
     private int role;
     private String password;
     private String salt;
@@ -114,12 +115,21 @@ public class User {
         this.role = role;
     }
 
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
+                ", sex=" + sex +
                 ", role=" + role +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +

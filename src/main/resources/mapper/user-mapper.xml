@@ -5,11 +5,11 @@
 <mapper namespace="com.community.dao.UserMapper">
 
     <sql id="insertFields">
-        username,name,role, password, salt, email, type, status, activation_code, header_url, create_time
+        username,name,sex,role, password, salt, email, type, status, activation_code, header_url, create_time
     </sql>
 
     <sql id="selectFields">
-        id, username,name,role, password, salt, email, type, status, activation_code, header_url, create_time
+        id, username,name,sex,role, password, salt, email, type, status, activation_code, header_url, create_time
     </sql>
 
     <select id="selectById" resultType="User">

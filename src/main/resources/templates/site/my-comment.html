@@ -25,10 +25,16 @@
 							<a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{|/user/profile/${user.id}|}">个人信息</a>
 						</li>
 						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${loginUser.id!=user.id?'它的博客':'我的博客'}">我的博客</a>
+							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="我的博客" th:if="${loginUser.id==user.id}">我的博客</a>
 						</li>
 						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="${loginUser.id!=user.id?'它的评论':'我的评论'}">我的评论</a>
+							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="我的评论" th:if="${loginUser.id==user.id}">我的评论</a>
+						</li>
+						<li class="nav-item">
+							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${user.sex==0?'他的博客':'她的博客'}" th:if="${loginUser.id!=user.id}">他的博客</a>
+						</li>
+						<li class="nav-item">
+							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="${user.sex==0?'他的评论':'她的评论'}" th:if="${loginUser.id!=user.id}">他的评论</a>
 						</li>
 					</ul>
 					<a th:href="@{|/user/profile/${user.id}|}" class="text-muted position-absolute rt-0" th:if="${loginUser.id==user.id}">返回个人主页&gt;</a>
