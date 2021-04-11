@@ -68,6 +68,10 @@ public class UserService implements CommunityConstant {
             map.put("usernameMsg", "账号不能为空！");
             return map;
         }
+        if (user.getUsername().length()!=13 || user.getUsername().length()!=8) {
+            map.put("usernameMsg", "账号需为8位或13位");
+            return map;
+        }
         if (StringUtils.isBlank(user.getPassword())) {
             map.put("passwordMsg", "密码不能为空！");
             return map;
