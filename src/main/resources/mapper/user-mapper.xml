@@ -53,4 +53,16 @@
         update user set password = #{password} where id = #{id}
     </update>
 
+    <select id="findUserRows" resultType="int">
+        select count(*) from user where id!=1
+    </select>
+
+    <select id="findUsers" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where id!=1
+        order by create_time desc
+        limit #{offset}, #{limit}
+    </select>
+
 </mapper>

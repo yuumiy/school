@@ -17,6 +17,9 @@ public class DiscussPost {
     @Field(type = FieldType.Integer)
     private int userId;
 
+    @Field(type = FieldType.Text)
+    private String userName;
+
     // 搜索博客主要依据title、content
     //存储的时候用analyzer分词器，搜索的时候用searchAnalyzer分词器
     @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
@@ -152,12 +155,20 @@ public class DiscussPost {
         this.category = category;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     @Override
     public String toString() {
         return "DiscussPost{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", userName=" + userName +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", kind=" + kind +

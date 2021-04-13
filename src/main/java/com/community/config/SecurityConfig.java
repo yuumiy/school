@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                         "/discuss/wonderful",
                         "/discuss/unwonderful",
                         "/data/**",
+                        "/manage/**",
                         "/actuator/**"
                 )
                 .hasAnyAuthority(

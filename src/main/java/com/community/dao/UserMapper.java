@@ -4,6 +4,8 @@ import com.community.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     //一般都加上@Param比较保险
@@ -23,4 +25,8 @@ public interface UserMapper {
     int updatePassword(@Param("id")int id,@Param("password") String password);
 
     User selectByUserName(@Param("username")String username);
+
+    int findUserRows();
+
+    List<User> findUsers(@Param("offset")int offset, @Param("limit")int limit);
 }

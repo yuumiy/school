@@ -357,6 +357,27 @@ public class UserController implements CommunityConstant {
         return "site/my-comment";
     }
 
+    // 拉黑
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public String setDelete(int id) {
+        userService.updateStatus(id, 2);
+        return CommunityUtil.getJSONString(0);
+    }
 
+    // 取消拉黑
+    @RequestMapping(path = "/undelete", method = RequestMethod.POST)
+    @ResponseBody
+    public String setUnDelete(int id) {
+        userService.updateStatus(id, 1);
+        return CommunityUtil.getJSONString(0);
+    }
 
+    // 激活
+    @RequestMapping(path = "/active", method = RequestMethod.POST)
+    @ResponseBody
+    public String avtive(int id) {
+        userService.updateStatus(id, 1);
+        return CommunityUtil.getJSONString(0);
+    }
 }

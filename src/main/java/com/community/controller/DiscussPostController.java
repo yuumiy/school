@@ -67,6 +67,7 @@ public class DiscussPostController implements CommunityConstant {
             post.setCategory(1);
         }
         post.setUserId(user.getId());
+        post.setUserName(user.getName());
         post.setTitle(title);
         post.setKind(Integer.parseInt(kind));
         post.setContent(content);
@@ -249,7 +250,7 @@ public class DiscussPostController implements CommunityConstant {
         return CommunityUtil.getJSONString(0);
     }
 
-    // 删除帖子
+    // 删除博客
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public String setDelete(int id) {

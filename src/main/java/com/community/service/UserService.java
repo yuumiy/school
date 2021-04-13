@@ -182,6 +182,12 @@ public class UserService implements CommunityConstant {
             return map;
         }
 
+        // 验证状态
+        if (user.getStatus() == 2) {
+            map.put("usernameMsg", "该账号已被拉黑！请联系115274737@qq.com解禁！");
+            return map;
+        }
+
         // 验证密码
         password = CommunityUtil.md5(password + user.getSalt());
         if (!user.getPassword().equals(password)) {
@@ -336,5 +342,17 @@ public class UserService implements CommunityConstant {
         userMapper.updatePassword(user.getId(),password);
         map.put("success","success");
         return map;
+    }
+
+    public int findUserRows() {
+        return userMapper.findUserRows();
+    }
+
+    public List<User> findUsers(int offset, int limit) {
+        return userMapper.findUsers(offset,limit);
+    }
+
+    public void updateStatus(int id, int status) {
+        userMapper.updateStatus(id,status);
     }
 }

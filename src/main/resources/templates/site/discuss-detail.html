@@ -130,26 +130,9 @@
 							<div class="mt-4 text-muted font-size-12">
 								<span>发布于 <b th:text="${#dates.format(cvo.comment.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b></span>
 								<div class="d-inline float-right">
-									<a href="#delComment" data-toggle="modal" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')">删除</a>
-									<a href="#delComment" data-toggle="modal" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==cvo.comment.userId}" sec:authorize="hasAnyAuthority('user')">删除</a>
+									<a href="#javascript:;" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')" th:onclick="|delComment(this,${cvo.comment.id},${post.id});|">删除</a>
+									<a href="javascript:;" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==cvo.comment.userId}" sec:authorize="hasAnyAuthority('user')">删除</a>
 									&nbsp;&nbsp;&nbsp;
-									<div class="modal fade" id="delComment" tabindex="-1" role="dialog" aria-labelledby="delCommentLabel">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h6 class="modal-title" id="delCommentLabel" style="color:black!important">提示</h6>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-												</div>
-												<div class="modal-body">
-													<h6 style="color:black!important">您确认要删除这条评论吗？</h6>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-													<button type="button" class="btn btn-primary" th:onclick="|delComment(${cvo.comment.id},${post.id});|">确认</button>
-												</div>
-											</div>
-										</div>
-									</div>
 									<a href="javascript:;" th:onclick="|like(this,2,${cvo.comment.id},${cvo.comment.userId},${post.id});|" class="text-primary">
 										<b th:text="${cvo.likeStatus==1?'已赞':'赞'}">赞</b>(<i th:text="${cvo.likeCount}">1</i>)
 									</a>&nbsp;&nbsp;

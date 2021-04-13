@@ -49,11 +49,10 @@
 								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" class="text-info"></a>
 								<span class="float-right font-size-12 text-muted">
                                 赞 <i class="mr-2" th:utext="${map.likeCount}"></i>|&nbsp;&nbsp;回复 <i class="mr-2" th:utext="${map.post.commentCount}"></i>
-									&nbsp;发布于 <b
-										th:text="${#dates.format(map.post.createTime, 'yyyy-MM-dd HH:mm:ss')}"></b>
-                            </span>
+									&nbsp;
+									发布于 <b th:text="${#dates.format(map.post.createTime, 'yyyy-MM-dd HH:mm:ss')}"></b>
+                            	</span>
 							</div>
-
 						</li>
 					</ul>
 					<!-- 分页 -->

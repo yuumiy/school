@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" th:href="@{/img/icon.png}"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<title>我的评论</title>
+</head>
+<body>
+	<div class="nk-container">
+		<!-- 头部 -->
+		<header class="bg-dark sticky-top" th:replace="index::header">
+
+		</header>
+
+		<!-- 内容 -->
+		<div class="main">
+			<div class="container">
+				<!-- 选项 -->
+				<div class="position-relative">
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{/manage}">用户管理</a>
+						</li>
+						<li class="nav-item">
+							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{/manage/post}">博客管理</a>
+						</li>
+						<li class="nav-item">
+							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{/manage/comment}">评论管理</a>
+						</li>
+					</ul>
+				</div>
+				<!-- 用户管理 -->
+				<div class="mt-4">
+					<h6><b class="square"></b> 用户管理(<i th:text="${userCount}"></i>)</h6>
+					<ul class="list-unstyled">
+						<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${users}">
+							<a th:href="@{|/user/profile/${map.user.id}|}">
+								<img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
+							</a>
+							<div class="media-body">
+								<h6 class="mt-0 mb-3">
+									<input type="hidden" id="userId" th:value="${map.user.id}">
+									<span th:utext="${map.user.name}" style="color:#69757d">user</span>&nbsp;&nbsp;
+									<span th:utext="${map.user.role==0?'学生':'老师'}" style="color:#69757d">user</span>
+									<span class="fa fa-mars" style="font-size:18px;color: deepskyblue;font-weight: bold" th:if="${map.user.sex==0}"></span>
+									<span class="fa fa-venus" style="font-size:18px;color: red;font-weight: bold" th:if="${map.user.sex==1}"></span>
+									<button type="button" class="btn btn-primary btn-sm float-right" th:if="${map.user.status==0}" id="activeBtn">激活</button>
+									<button type="button" th:class="|btn ${map.user.status==2?'btn-secondary':'btn-danger'} btn-sm float-right|" id="deleteBtn"
+											th:text="${map.user.status==2?'取消拉黑':'拉黑'}" th:if="${map.user.status!=0}">拉黑</button>
+								</h6>
+								<div class="text-muted font-size-12">
+									注册于 <b th:text="${#dates.format(map.user.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>&nbsp;
+								</div>
+							</div>
+						</li>
+					</ul>
+					<!-- 分页 -->
+					<nav class="mt-5" th:replace="index::pagination">
+
+					</nav>
+				</div>
+			</div>
+		</div>
+
+		<!-- 尾部 -->
+		<footer class="bg-dark" th:replace="index::footer">
+
+		</footer>
+	</div>
+
+	<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script th:src="@{/js/manage-user.js}"></script>
+</body>
+</html>
