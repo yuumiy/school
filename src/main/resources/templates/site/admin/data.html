@@ -17,9 +17,9 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<!-- 网站UV -->
+			<!-- 网站独立访客 -->
 			<div class="container pl-5 pr-5 pt-3 pb-3 mt-3">
-				<h6 class="mt-3"><b class="square"></b> 网站 UV</h6>
+				<h6 class="mt-3"><b class="square"></b> 网站独立访客</h6>
 				<form class="form-inline mt-3" method="post" th:action="@{/data/uv}">
 					<input type="date" class="form-control" required name="start" th:value="${#dates.format(uvStartDate,'yyyy-MM-dd')}"/>
 					<input type="date" class="form-control ml-3" required name="end" th:value="${#dates.format(uvEndDate,'yyyy-MM-dd')}"/>

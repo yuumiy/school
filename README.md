@@ -41,3 +41,8 @@ F:\JavaTools\kafka_2.12-2.3.0>bin\windows\kafka-server-start.bat config\server.p
 20170029-20170031 老师账号　　密码：123456<br/>
 29-30为男老师，31为女老师<br/>
 老师账号均为管理员<br/>
+
+管理员可以查看网站独立访客和活跃用户数：<br/>
+http://localhost:8080/community/data<br/>
+管理员可以到一个统一管理的页面，拉黑某个用户，删除所有博客或评论：<br/>
+http://localhost:8080/community/manage 

@@ -65,7 +65,19 @@ public class CommentService implements CommunityConstant {
         return commentMapper.selectCommentsByUserId(id,offset,limit);
     }
 
-    public int updateStatus(int entityId, int status) {
-        return commentMapper.updateStatus(entityId,status);
+    public int updateCommentByPostId(int entityId, int status) {
+        return commentMapper.updateCommentByPostId(entityId,status);
+    }
+
+    public int updateComment(int id, int status) {
+        return commentMapper.updateComment(id,status);
+    }
+
+    public int updateReplyByPostId(int entityId, int status) {
+        return commentMapper.updateReplyByPostId(entityId,status);
+    }
+
+    public int updateReplyByCommentId(int id, int status) {
+        return commentMapper.updateReplyByCommentId(id,status);
     }
 }

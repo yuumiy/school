@@ -1,6 +1,8 @@
 package com.community.controller;
 
+import com.community.dao.CommentMapper;
 import com.community.entity.DiscussPost;
+import com.community.util.CommunityUtil;
 import com.community.util.HostHolder;
 import com.community.entity.Comment;
 import com.community.entity.Event;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 
@@ -36,6 +39,9 @@ public class CommentController implements CommunityConstant {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @RequestMapping(path = "/add/{discussPostId}", method = RequestMethod.POST)
     public String addComment(@PathVariable("discussPostId") int discussPostId, Comment comment) {
@@ -61,7 +67,7 @@ public class CommentController implements CommunityConstant {
         }
         eventProducer.fireEvent(event);
 
-        //触发评论事件后，还要触发发博客事件，因为博客评论数量改变
+        //触发评论事件后，还要触发发博客事件，因为评论也是博客内容的一部分
         if (comment.getEntityType() == ENTITY_TYPE_POST) {
             // 触发发博客事件
             event = new Event()
@@ -77,6 +83,64 @@ public class CommentController implements CommunityConstant {
         }
 
         return "redirect:/discuss/detail/" + discussPostId;
+    }
+
+    // 删除评论,并且要把评论中的回复也删除
+    @RequestMapping(path = "/deleteComment", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteComment(int id,int postId) {
+        Comment comment=commentService.findCommentById(id);
+        commentService.updateComment(id,1);
+        commentService.updateReplyByCommentId(id,1);
+
+        //触发评论事件后，还要触发发博客事件，因为评论也是博客内容的一部分
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            // 触发发博客事件
+            Event event = new Event()
+                    .setTopic(TOPIC_PUBLISH)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(ENTITY_TYPE_POST)
+                    .setEntityId(postId);
+            eventProducer.fireEvent(event);
+
+            // 计算博客分数
+            String redisKey = RedisKeyUtil.getPostScoreKey();
+            redisTemplate.opsForSet().add(redisKey, postId);
+        }
+
+        // 更新博客评论数量,博客id就是comment.getEntityId
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            int count = commentMapper.selectCountByEntity(comment.getEntityType(), comment.getEntityId());
+            discussPostService.updateCommentCount(comment.getEntityId(), count);
+        }
+
+
+        return CommunityUtil.getJSONString(0);
+    }
+
+    // 删除回复
+    @RequestMapping(path = "/deleteReply", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteReply(int id,int postId) {
+        Comment comment=commentService.findCommentById(id);
+        commentService.updateComment(id,1);
+
+        //触发评论事件后，还要触发发博客事件，因为评论也是博客内容的一部分
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            // 触发发博客事件
+            Event event = new Event()
+                    .setTopic(TOPIC_PUBLISH)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(ENTITY_TYPE_POST)
+                    .setEntityId(postId);
+            eventProducer.fireEvent(event);
+
+            // 计算博客分数
+            String redisKey = RedisKeyUtil.getPostScoreKey();
+            redisTemplate.opsForSet().add(redisKey, postId);
+        }
+
+        return CommunityUtil.getJSONString(0);
     }
 
 }

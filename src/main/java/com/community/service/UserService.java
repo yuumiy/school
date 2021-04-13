@@ -3,10 +3,7 @@ package com.community.service;
 import com.community.dao.UserMapper;
 import com.community.entity.LoginTicket;
 import com.community.entity.User;
-import com.community.util.CommunityConstant;
-import com.community.util.CommunityUtil;
-import com.community.util.MailClient;
-import com.community.util.RedisKeyUtil;
+import com.community.util.*;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,9 @@ public class UserService implements CommunityConstant {
     @Autowired
     private Producer kaptchaProducer;
 
+    @Autowired
+    private MailValid mailValid;
+
     @Value("${community.path.domain}")
     private String domain;
 
@@ -68,38 +68,52 @@ public class UserService implements CommunityConstant {
             map.put("usernameMsg", "账号不能为空！");
             return map;
         }
-        if (user.getUsername().length()!=13 || user.getUsername().length()!=8) {
-            map.put("usernameMsg", "账号需为8位或13位");
+        if (user.getUsername().length()!=13 && user.getUsername().length()!=8) {
+            map.put("usernameMsg", "账号需为8位或13位！");
+            return map;
+        }
+        // 验证账号是否存在
+        User u = userMapper.selectByUserName(user.getUsername());
+        if (u != null) {
+            map.put("usernameMsg", "该账号已存在！");
+            return map;
+        }
+        if (StringUtils.isBlank(user.getName())) {
+            map.put("usernameMsg", "用户名不能为空！");
+            return map;
+        }
+        if (!user.getName().matches("[\u4e00-\u9fa5]{2,4}")) {
+            map.put("nameMsg", "用户名需为2-4个汉字！");
+            return map;
+        }
+        // 验证用户名是否存在
+        u = userMapper.selectByName(user.getName());
+        if (u != null) {
+            map.put("nameMsg", "该用户名已存在！");
             return map;
         }
         if (StringUtils.isBlank(user.getPassword())) {
             map.put("passwordMsg", "密码不能为空！");
             return map;
         }
-        if (StringUtils.isBlank(user.getEmail())) {
-            map.put("emailMsg", "邮箱不能为空！");
-            return map;
-        }
-
-        // 验证账号
-        User u = userMapper.selectByUserName(user.getUsername());
-        if (u != null) {
-            map.put("usernameMsg", "该账号已存在！");
+        if (user.getPassword().length()<6) {
+            map.put("passwordMsg", "密码至少需要6位！");
             return map;
         }
         if(!user.getPassword().equals(confirmPassword)){
             map.put("confirmPasswordMsg","两次输入的密码不一致！");
             return map;
         }
-
-        // 验证用户名
-        u = userMapper.selectByName(user.getName());
-        if (u != null) {
-            map.put("nameMsg", "该用户名已存在！");
+        if (StringUtils.isBlank(user.getEmail())) {
+            map.put("emailMsg", "邮箱不能为空！");
             return map;
         }
-
-        // 验证邮箱
+        // 验证邮箱是否存在
+        if (!mailValid.valid(user.getEmail(),domain + contextPath)) {
+            map.put("emailMsg", "邮箱不存在！");
+            return map;
+        }
+        // 验证邮箱是否被注册
         u = userMapper.selectByEmail(user.getEmail());
         if (u != null) {
             map.put("emailMsg", "该邮箱已被注册！");

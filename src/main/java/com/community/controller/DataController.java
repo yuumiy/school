@@ -22,7 +22,7 @@ public class DataController {
         return "/site/admin/data";
     }
 
-    // 统计网站UV  @DateTimeFormat将字符串格式的日期转为了日期格式
+    // 统计网站独立访客  @DateTimeFormat将字符串格式的日期转为了日期格式
     @RequestMapping(path = "/data/uv", method = RequestMethod.POST)
     public String getUV(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
                         @DateTimeFormat(pattern = "yyyy-MM-dd") Date end, Model model) {

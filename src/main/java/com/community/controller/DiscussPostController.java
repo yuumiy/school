@@ -249,12 +249,13 @@ public class DiscussPostController implements CommunityConstant {
         return CommunityUtil.getJSONString(0);
     }
 
-    // 删除
+    // 删除帖子
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public String setDelete(int id) {
         discussPostService.updateStatus(id, 2);
-        commentService.updateStatus(id,1);
+        commentService.updateCommentByPostId(id,1);
+        commentService.updateReplyByPostId(id,1);
 
         // 触发删博客事件
         Event event = new Event()

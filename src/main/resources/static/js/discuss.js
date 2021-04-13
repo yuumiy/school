@@ -2,6 +2,7 @@ $(function(){
     $("#topBtn").click(setTop);
     $("#wonderfulBtn").click(setWonderful);
     $("#deleteBtn").click(setDelete);
+    $("#delBtn").click(setDelete);
 });
 
 function like(btn, entityType, entityId, entityUserId, postId) {
@@ -88,7 +89,7 @@ function setWonderful() {
     }
 }
 
-// 删除
+// 删除帖子
 function setDelete() {
     $.post(
         CONTEXT_PATH + "/discuss/delete",
@@ -97,6 +98,35 @@ function setDelete() {
             data = $.parseJSON(data);
             if(data.code == 0) {
                 location.href = CONTEXT_PATH + "/index";
+            } else {
+                alert(data.msg);
+            }
+        }
+    );
+}
+
+function delComment(id,postId) {
+    $.post(
+        CONTEXT_PATH + "/comment/deleteComment",
+        {"id":id,"postId":postId},
+        function(data) {
+            data = $.parseJSON(data);
+            if(data.code == 0) {
+                window.location.reload();
+            } else {
+                alert(data.msg);
+            }
+        }
+    );
+}
+function delReply(id,postId) {
+    $.post(
+        CONTEXT_PATH + "/comment/deleteReply",
+        {"id":id,"postId":postId},
+        function(data) {
+            data = $.parseJSON(data);
+            if(data.code == 0) {
+                window.location.reload();
             } else {
                 alert(data.msg);
             }

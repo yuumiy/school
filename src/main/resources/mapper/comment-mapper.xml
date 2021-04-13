@@ -60,8 +60,22 @@
         limit #{offset}, #{limit}
     </select>
 
-    <update id="updateStatus">
+    <update id="updateCommentByPostId">
         update comment set status = #{status} where entity_id = #{entityId} and entity_type=1
+    </update>
+
+    <update id="updateReplyByPostId">
+        update comment set status = #{status} where entity_id in
+        (select a.id from (select id from comment where entity_id = #{entityId} and entity_type=1) as a)
+        and entity_type=2
+    </update>
+
+    <update id="updateComment">
+        update comment set status = #{status} where id=#{id}
+    </update>
+
+    <update id="updateReplyByCommentId">
+        update comment set status = #{status} where entity_id=#{id} and entity_type=2
     </update>
 
 </mapper>

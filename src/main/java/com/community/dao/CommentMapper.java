@@ -21,5 +21,11 @@ public interface CommentMapper {
 
     List<Comment> selectCommentsByUserId(@Param("id")int id,@Param("offset")int offset,@Param("limit")int limit);
 
-    int updateStatus(@Param("entityId")int entityId, @Param("status")int status);
+    int updateCommentByPostId(@Param("entityId")int entityId, @Param("status")int status);
+
+    int updateReplyByPostId(@Param("entityId")int entityId, @Param("status")int status);
+
+    int updateComment(@Param("id")int id,  @Param("status")int status);
+
+    int updateReplyByCommentId(@Param("id")int id, @Param("status")int status);
 }
