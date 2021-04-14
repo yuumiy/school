@@ -238,6 +238,8 @@ public class UserController implements CommunityConstant {
     //向邮箱发送验证码
     @ResponseBody
     public String sendCode(String email,HttpServletResponse response){
+        if(StringUtils.isBlank(email))
+            return CommunityUtil.getJSONString(1,"邮箱不能为空");
         User user=userService.findUserByEmail(email);
         if(user==null){
             return CommunityUtil.getJSONString(1,"您输入的邮箱格式有误或未注册");

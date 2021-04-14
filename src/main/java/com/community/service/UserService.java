@@ -245,6 +245,10 @@ public class UserService implements CommunityConstant {
             map.put("newPasswordMsg", "密码不能为空！");
             return map;
         }
+        if (newPassword.length()<6) {
+            map.put("newPasswordMsg", "密码至少需要6位！");
+            return map;
+        }
         if(!newPassword.equals(confirmPassword)){
             map.put("confirmPasswordMsg", "两次输入的密码不一致！");
             return map;
@@ -256,6 +260,7 @@ public class UserService implements CommunityConstant {
             return map;
         }
         userMapper.updatePassword(id,newPassword);
+        clearCache(user.getId());
         return map;
     }
 
@@ -332,15 +337,24 @@ public class UserService implements CommunityConstant {
 
     public Map<String, Object> changePasswordByCode(String email, String password) {
         Map<String, Object> map = new HashMap<>();
+        User user=userMapper.selectByEmail(email);
         // 验证密码
         if (StringUtils.isBlank(password)) {
             map.put("passwordMsg", "密码不能为空！");
             return map;
         }
-        User user=userMapper.selectByEmail(email);
+        if (password.length()<6) {
+            map.put("passwordMsg", "密码至少需要6位！");
+            return map;
+        }
         password=CommunityUtil.md5(password + user.getSalt());
+        if(password.equals(user.getPassword())){
+            map.put("passwordMsg", "旧密码与新密码一致！");
+            return map;
+        }
         userMapper.updatePassword(user.getId(),password);
         map.put("success","success");
+        clearCache(user.getId());
         return map;
     }
 
