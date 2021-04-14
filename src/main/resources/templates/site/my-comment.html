@@ -45,8 +45,10 @@
 					<ul class="list-unstyled mt-4 pl-3 pr-3">
 						<li class="border-bottom pb-3 mt-4" th:each="map:${comments}">
 							<div class="font-size-16 text-info">
-								<a th:href="@{|/discuss/detail/${map.comment.entityId}|}" class="text-info"
-								   th:utext="${map.discussPostTitle}"></a>
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" class="text-info" th:utext="${map.post.title}"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" class="text-info"></a>
+								<span class="badge badge-secondary bg-success" th:if="${map.post.category==0}">学生帖</span>
+								<span class="badge badge-secondary bg-muted" th:if="${map.post.category==1}">老师帖</span>
 							</div>
 							<div class="mt-1 font-size-14" th:utext="${map.comment.content}"></div>
 							<div class="text-right font-size-12 text-muted">

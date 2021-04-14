@@ -1,15 +1,10 @@
-$(function(){
-    $("#deleteBtn").click(setDelete);
-    $("#activeBtn").click(setActive);
-});
-
 // 拉黑
-function setDelete() {
-    if($("#deleteBtn").hasClass("btn-danger")) {
+function setDelete(btn,userId) {
+    if($(btn).hasClass("btn-danger")) {
         //拉黑
         $.post(
             CONTEXT_PATH + "/user/delete",
-            {"id": $("#userId").val()},
+            {"id": userId},
             function (data) {
                 //从服务器返回的json字符串中取出code值
                 data = $.parseJSON(data);
@@ -24,7 +19,7 @@ function setDelete() {
         //取消拉黑
         $.post(
             CONTEXT_PATH + "/user/undelete",
-            {"id": $("#userId").val()},
+            {"id": userId},
             function (data) {
                 //从服务器返回的json字符串中取出code值
                 data = $.parseJSON(data);
@@ -38,11 +33,12 @@ function setDelete() {
     }
 }
 
+
 // 激活
-function setActive() {
+function setActive(userId) {
         $.post(
             CONTEXT_PATH + "/user/active",
-            {"id": $("#userId").val()},
+            {"id": userId},
             function (data) {
                 //从服务器返回的json字符串中取出code值
                 data = $.parseJSON(data);

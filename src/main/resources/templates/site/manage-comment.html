@@ -1,4 +1,3 @@
-<!--
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -11,43 +10,39 @@
 </head>
 <body>
 	<div class="nk-container">
-		&lt;!&ndash; 头部 &ndash;&gt;
+		<!-- 头部 -->
 		<header class="bg-dark sticky-top" th:replace="index::header">
 
 		</header>
 
-		&lt;!&ndash; 内容 &ndash;&gt;
+		<!-- 内容 -->
 		<div class="main">
 			<div class="container">
-				&lt;!&ndash; 选项 &ndash;&gt;
+				<!-- 选项 -->
 				<div class="position-relative">
 					<ul class="nav nav-tabs">
-						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{|/user/profile/${user.id}|}">个人信息</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="我的博客" th:if="${loginUser.id==user.id}">我的博客</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="我的评论" th:if="${loginUser.id==user.id}">我的评论</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{|/user/mypost/${user.id}|}" th:text="${user.sex==0?'他的博客':'她的博客'}" th:if="${loginUser.id!=user.id}">他的博客</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{|/user/mycomment/${user.id}|}" th:text="${user.sex==0?'他的评论':'她的评论'}" th:if="${loginUser.id!=user.id}">他的评论</a>
-						</li>
+                        <li class="nav-item">
+                            <a th:class="|nav-link ${infoMode==0?'active':''}|" th:href="@{/manage}">用户管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:class="|nav-link ${infoMode==1?'active':''}|" th:href="@{/manage/post}">博客管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:class="|nav-link ${infoMode==2?'active':''}|" th:href="@{/manage/comment}">评论管理</a>
+                        </li>
 					</ul>
-					<a th:href="@{|/user/profile/${user.id}|}" class="text-muted position-absolute rt-0" th:if="${loginUser.id==user.id}">返回个人主页&gt;</a>
 				</div>
-				&lt;!&ndash; 我的评论 &ndash;&gt;
+				<!-- 评论管理 -->
 				<div class="mt-4">
-					<h6><b class="square"></b> 评论的博客(<i th:text="${commentCount}"></i>)</h6>
+					<h6><b class="square"></b> 评论管理(<i th:text="${commentCount}"></i>)</h6>
 					<ul class="list-unstyled mt-4 pl-3 pr-3">
 						<li class="border-bottom pb-3 mt-4" th:each="map:${comments}">
 							<div class="font-size-16 text-info">
-								<a th:href="@{|/discuss/detail/${map.comment.entityId}|}" class="text-info"
-								   th:utext="${map.discussPostTitle}"></a>
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" class="text-info" th:utext="${map.post.title}"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" class="text-info"></a>
+								<span class="badge badge-secondary bg-success" th:if="${map.post.category==0}">学生帖</span>
+								<span class="badge badge-secondary bg-muted" th:if="${map.post.category==1}">老师帖</span>
+								<a href="javascript:;" class="btn btn-danger btn-sm float-right" th:onclick="|setDelete(${map.comment.id},${map.post.id});|">删除</a>
 							</div>
 							<div class="mt-1 font-size-14" th:utext="${map.comment.content}"></div>
 							<div class="text-right font-size-12 text-muted">
@@ -55,7 +50,7 @@
 							</div>
 						</li>
 					</ul>
-					&lt;!&ndash; 分页 &ndash;&gt;
+					<!-- 分页 -->
 					<nav class="mt-5" th:replace="index::pagination">
 
 					</nav>
@@ -63,7 +58,7 @@
 			</div>
 		</div>
 
-		&lt;!&ndash; 尾部 &ndash;&gt;
+		<!-- 尾部 -->
 		<footer class="bg-dark" th:replace="index::footer">
 
 		</footer>
@@ -73,6 +68,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 	<script th:src="@{/js/global.js}"></script>
+	<script th:src="@{/js/manage-comment.js}"></script>
 </body>
 </html>
--->

@@ -40,24 +40,9 @@
                             <div class="font-size-16 text-info mt-0 mb-3">
                                 <a th:href="@{|/discuss/detail/${map.post.id}|}" class="text-info" th:utext="${map.post.title}"></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" class="text-info"></a>
-                                <button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal">删除</button>
-                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h6 class="modal-title" id="deleteModalLabel" style="color:black!important">提示</h6>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h6 style="color:black!important">您确认要删除这篇博客吗？</h6>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                                <button type="button" class="btn btn-primary" th:onclick="|setDelete(${map.post.id});|">确认</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span class="badge badge-secondary bg-success" th:if="${map.post.category==0}">学生帖</span>
+                                <span class="badge badge-secondary bg-muted" th:if="${map.post.category==1}">老师帖</span>
+                                <a href="javascript:;" class="btn btn-danger btn-sm float-right" th:onclick="|setDelete(${map.post.id});|">删除</a>
                             </div>
                             <div class="text-left font-size-12 text-muted">
                                 赞 <i class="mr-2" th:utext="${map.likeCount}"></i>|&nbsp;&nbsp;回复 <i class="mr-2" th:utext="${map.post.commentCount}"></i>

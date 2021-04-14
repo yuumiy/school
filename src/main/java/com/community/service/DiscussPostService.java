@@ -36,43 +36,43 @@ public class DiscussPostService {
     @Value("${caffeine.posts.expire-seconds}")
     private int expireSeconds;
 
-    // Caffeine核心接口: Cache, LoadingCache, AsyncLoadingCache
-
-    // 博客列表缓存。缓存都是按key缓存value
-    private LoadingCache<String, List<DiscussPost>> postListCache;
-
-    // 博客总数缓存
-    private LoadingCache<Integer, Integer> postRowsCache;
+//    // Caffeine核心接口: Cache, LoadingCache, AsyncLoadingCache
+//
+//    // 博客列表缓存。缓存都是按key缓存value
+//    private LoadingCache<String, List<DiscussPost>> postListCache;
+//
+//    // 博客总数缓存
+//    private LoadingCache<Integer, Integer> postRowsCache;
 
     //@PostConstruct表示对象创建的时候会执行这个方法
-    @PostConstruct
-    public void init() {
-        // 初始化博客列表缓存
-        postListCache = Caffeine.newBuilder()
-                .maximumSize(maxSize)
-                .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)
-                .build(new CacheLoader<String, List<DiscussPost>>() {
-                    @Nullable
-                    @Override
-                    public List<DiscussPost> load(@NonNull String key) throws Exception {
-                        if (key == null || key.length() == 0) {
-                            throw new IllegalArgumentException("参数错误!");
-                        }
-
-                        String[] params = key.split(":");
-                        if (params == null || params.length != 2) {
-                            throw new IllegalArgumentException("参数错误!");
-                        }
-
-                        int offset = Integer.valueOf(params[0]);
-                        int limit = Integer.valueOf(params[1]);
-
-                        // 二级缓存: Redis -> mysql
-
-                        logger.debug("load post list from DB.");
-                        return discussPostMapper.selectDiscussPosts(0, offset, limit, 1);
-                    }
-                });
+//    @PostConstruct
+//    public void init() {
+//        // 初始化博客列表缓存
+//        postListCache = Caffeine.newBuilder()
+//                .maximumSize(maxSize)
+//                .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)
+//                .build(new CacheLoader<String, List<DiscussPost>>() {
+//                    @Nullable
+//                    @Override
+//                    public List<DiscussPost> load(@NonNull String key) throws Exception {
+//                        if (key == null || key.length() == 0) {
+//                            throw new IllegalArgumentException("参数错误!");
+//                        }
+//
+//                        String[] params = key.split(":");
+//                        if (params == null || params.length != 2) {
+//                            throw new IllegalArgumentException("参数错误!");
+//                        }
+//
+//                        int offset = Integer.valueOf(params[0]);
+//                        int limit = Integer.valueOf(params[1]);
+//
+//                        // 二级缓存: Redis -> mysql
+//
+//                        logger.debug("load post list from DB.");
+//                        return discussPostMapper.selectDiscussPosts(0, offset, limit, 1);
+//                    }
+//                });
 //        // 初始化博客总数缓存
 //        postRowsCache = Caffeine.newBuilder()
 //                .maximumSize(maxSize)
@@ -85,15 +85,15 @@ public class DiscussPostService {
 //                        return discussPostMapper.selectDiscussPostRows(key);
 //                    }
 //                });
-    }
+//    }
 
     public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit,int orderMode) {
         //注释掉该段代码，表示不使用postListCache缓存。使用缓存后实时性可能会降低，但从缓存中查询速度提高
-        if (userId == 0 && orderMode == 1) {
-            return postListCache.get(offset + ":" + limit);
-        }
+//        if (userId == 0 && orderMode == 1) {
+//            return postListCache.get(offset + ":" + limit);
+//        }
 
-        logger.debug("load post list from DB.");
+//        logger.debug("load post list from DB.");
         return discussPostMapper.selectDiscussPosts(userId, offset, limit,orderMode);
     }
 
@@ -102,7 +102,7 @@ public class DiscussPostService {
 //            return postRowsCache.get(userId);
 //        }
 
-        logger.debug("load post rows from DB.");
+//        logger.debug("load post rows from DB.");
         return discussPostMapper.selectDiscussPostRows(userId);
     }
 
@@ -142,4 +142,7 @@ public class DiscussPostService {
         return discussPostMapper.updateScore(id, score);
     }
 
+    public int findDiscussPostRowsByOrderMode(int orderMode) {
+        return discussPostMapper.findDiscussPostRowsByOrderMode(orderMode);
+    }
 }

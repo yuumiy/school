@@ -43,14 +43,13 @@
 							</a>
 							<div class="media-body">
 								<h6 class="mt-0 mb-3">
-									<input type="hidden" id="userId" th:value="${map.user.id}">
 									<span th:utext="${map.user.name}" style="color:#69757d">user</span>&nbsp;&nbsp;
 									<span th:utext="${map.user.role==0?'学生':'老师'}" style="color:#69757d">user</span>
 									<span class="fa fa-mars" style="font-size:18px;color: deepskyblue;font-weight: bold" th:if="${map.user.sex==0}"></span>
 									<span class="fa fa-venus" style="font-size:18px;color: red;font-weight: bold" th:if="${map.user.sex==1}"></span>
-									<button type="button" class="btn btn-primary btn-sm float-right" th:if="${map.user.status==0}" id="activeBtn">激活</button>
-									<button type="button" th:class="|btn ${map.user.status==2?'btn-secondary':'btn-danger'} btn-sm float-right|" id="deleteBtn"
-											th:text="${map.user.status==2?'取消拉黑':'拉黑'}" th:if="${map.user.status!=0}">拉黑</button>
+									<a href="javascript:;" class="btn btn-primary btn-sm float-right" th:if="${map.user.status==0}" th:onclick="|setActive(${map.user.id});|">激活</a>
+									<a href="javascript:;" th:class="|btn ${map.user.status==2?'btn-secondary':'btn-danger'} btn-sm float-right|" th:onclick="|setDelete(this,${map.user.id});|"
+											th:text="${map.user.status==2?'取消拉黑':'拉黑'}" th:if="${map.user.status!=0}">拉黑</a>
 								</h6>
 								<div class="text-muted font-size-12">
 									注册于 <b th:text="${#dates.format(map.user.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>&nbsp;

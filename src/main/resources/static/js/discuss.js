@@ -91,22 +91,28 @@ function setWonderful() {
 
 // 删除博客
 function setDelete() {
-    $.post(
-        CONTEXT_PATH + "/discuss/delete",
-        {"id":$("#postId").val()},
-        function(data) {
-            data = $.parseJSON(data);
-            if(data.code == 0) {
-                location.href = CONTEXT_PATH + "/index";
-            } else {
-                alert(data.msg);
+    var flag = confirm("您确认要删除博客吗？");
+
+    if(flag) {
+        $.post(
+            CONTEXT_PATH + "/discuss/delete",
+            {"id": $("#postId").val()},
+            function (data) {
+                data = $.parseJSON(data);
+                if (data.code == 0) {
+                    location.href = CONTEXT_PATH + "/index";
+                } else {
+                    alert(data.msg);
+                }
             }
-        }
-    );
+        );
+    }else{
+
+    }
 }
 
-function delComment(btn,id,postId) {
-    var flag = confirm("您确认要删除博客吗？");
+function delComment(id,postId) {
+    var flag = confirm("您确认要删除评论吗？");
 
     if(flag){
         $.post(
@@ -126,16 +132,22 @@ function delComment(btn,id,postId) {
     }
 }
 function delReply(id,postId) {
-    $.post(
-        CONTEXT_PATH + "/comment/deleteReply",
-        {"id":id,"postId":postId},
-        function(data) {
-            data = $.parseJSON(data);
-            if(data.code == 0) {
-                window.location.reload();
-            } else {
-                alert(data.msg);
+    var flag = confirm("您确认要删除评论吗？");
+
+    if(flag) {
+        $.post(
+            CONTEXT_PATH + "/comment/deleteReply",
+            {"id": id, "postId": postId},
+            function (data) {
+                data = $.parseJSON(data);
+                if (data.code == 0) {
+                    window.location.reload();
+                } else {
+                    alert(data.msg);
+                }
             }
-        }
-    );
+        );
+    }else{
+
+    }
 }

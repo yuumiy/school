@@ -289,7 +289,7 @@ public class UserController implements CommunityConstant {
         model.addAttribute("user", user);
 
         // 设置分页信息
-        page.setLimit(5);
+        page.setLimit(10);
         page.setRows(discussPostService.findDiscussPostRows(user.getId()));
         page.setPath("/user/mypost/"+userId);
 
@@ -328,7 +328,7 @@ public class UserController implements CommunityConstant {
         model.addAttribute("user", user);
 
         // 设置分页信息
-        page.setLimit(5);
+        page.setLimit(10);
         page.setRows(commentService.findCommentCountById(user.getId()));
         page.setPath("/user/mycomment/"+userId);
 
@@ -341,8 +341,8 @@ public class UserController implements CommunityConstant {
                 map.put("comment", comment);
 
                 // 根据实体 id 查询对应的博客标题
-                String discussPostTitle = discussPostService.findDiscussPostById(comment.getEntityId()).getTitle();
-                map.put("discussPostTitle", discussPostTitle);
+                DiscussPost discussPost = discussPostService.findDiscussPostById(comment.getEntityId());
+                map.put("post", discussPost);
 
                 list.add(map);
             }

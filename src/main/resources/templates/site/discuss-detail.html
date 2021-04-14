@@ -24,15 +24,18 @@
 				<h6 class="mb-4">
 					<img src="http://static.nowcoder.com/images/img/icons/ico-discuss.png"/>
 					<!--使用utext标题如果是标签将正常显示，&lt;会显示为小于号-->
-					<span th:utext="${post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</span>
+					<span th:utext="${post.title}" style="font-weight:bold">备战春招，面试刷题跟他复习，一个月全搞定！</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span th:utext="${post.kindName}" style="font-weight:bold"></span>
 					<div class="float-right">
 						<input type="hidden" id="postId" th:value="${post.id}">
 						<button type="button" th:class="|btn ${post.type==1?'btn-secondary':'btn-danger'} btn-sm|" id="topBtn"
 								th:text="${post.type==1?'已置顶':'置顶'}" sec:authorize="hasAnyAuthority('admin')">置顶</button>
 						<button type="button" th:class="|btn ${post.status==1?'btn-secondary':'btn-danger'} btn-sm|" id="wonderfulBtn"
 								th:text="${post.status==1?'已加精':'加精'}" sec:authorize="hasAnyAuthority('admin')">加精</button>
+						<button type="button" class="btn btn-danger btn-sm" sec:authorize="hasAnyAuthority('admin')" id="deleteBtn">删除</button>
+						<!--使用bootstrap弹窗，可以自定义标题和内容
 						<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"
-								sec:authorize="hasAnyAuthority('admin')">删除</button>
+								sec:authorize="hasAnyAuthority('admin')" id="deleteBtn">删除</button>
 						<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
@@ -49,7 +52,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</h6>
 				<!-- 作者 -->
@@ -59,31 +62,18 @@
 					</a>
 					<img th:src="${user.headerUrl}" th:if="${loginUser==null}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 					<div class="media-body">
-						<div class="mt-0 text-warning" th:utext="${user.name}">寒江雪</div>
+						<div class="mt-0 text-warning" >
+							<span th:utext="${user.name}"></span>&nbsp;&nbsp;
+							<span class="badge badge-secondary bg-success" th:if="${post.category==0}">学生帖</span>
+							<span class="badge badge-secondary bg-muted" th:if="${post.category==1}">老师帖</span>
+						</div>
 						<div class="mt-3">
 							<b style="color:#69757d">发布于</b> <b style="color:#69757d" th:text="${#dates.format(post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 							<div class="d-inline float-right">
-								<a href="#delModal" data-toggle="modal" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==post.userId}">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h6 class="modal-title" id="delModalLabel" style="color:black!important">提示</h6>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-											</div>
-											<div class="modal-body">
-												<h6 style="color:black!important">您确认要删除这篇博客吗？</h6>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-												<button type="button" class="btn btn-primary" id="delBtn">确认</button>
-											</div>
-										</div>
-									</div>
-								</div>
-									<a href="javascript:;" th:onclick="|like(this,1,${post.id},${post.userId},${post.id});|" class="text-primary">
-										<b th:text="${likeStatus==1?'已赞':'赞'}">赞</b> <i th:text="${likeCount}">11</i>
-									</a>&nbsp;&nbsp;&nbsp;
+								<a href="#" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==post.userId}" id="delBtn">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#" th:onclick="|like(this,1,${post.id},${post.userId},${post.id});|" class="text-primary">
+									<b th:text="${likeStatus==1?'已赞':'赞'}">赞</b> <i th:text="${likeCount}">11</i>
+								</a>&nbsp;&nbsp;&nbsp;
 								<a href="#replyform" class="text-primary">回复 <i th:text="${post.commentCount}">7</i></a>
 							</div>
 						</div>
@@ -92,11 +82,6 @@
 				<!-- 正文 -->
 				<div class="mt-4 mb-3 content" th:utext="${post.content}">
 					金三银四的金三已经到了，你还沉浸在过年的喜悦中吗？
-					如果是，那我要让你清醒一下了：目前大部分公司已经开启了内推，正式网申也将在3月份陆续开始，金三银四，春招的求职黄金时期已经来啦！！！
-					再不准备，作为19应届生的你可能就找不到工作了。。。作为20届实习生的你可能就找不到实习了。。。
-					现阶段时间紧，任务重，能做到短时间内快速提升的也就只有算法了，
-					那么算法要怎么复习？重点在哪里？常见笔试面试算法题型和解题思路以及最优代码是怎样的？
-					跟左程云老师学算法，不仅能解决以上所有问题，还能在短时间内得到最大程度的提升！！！
 				</div>
 			</div>
 			<!-- 回复 -->
@@ -130,8 +115,8 @@
 							<div class="mt-4 text-muted font-size-12">
 								<span>发布于 <b th:text="${#dates.format(cvo.comment.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b></span>
 								<div class="d-inline float-right">
-									<a href="#javascript:;" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')" th:onclick="|delComment(this,${cvo.comment.id},${post.id});|">删除</a>
-									<a href="javascript:;" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==cvo.comment.userId}" sec:authorize="hasAnyAuthority('user')">删除</a>
+									<a href="#javascript:;" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')" th:onclick="|delComment(${cvo.comment.id},${post.id});|">删除</a>
+									<a href="javascript:;" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==cvo.comment.userId}" sec:authorize="hasAnyAuthority('user')" th:onclick="|delComment(${cvo.comment.id},${post.id});|">删除</a>
 									&nbsp;&nbsp;&nbsp;
 									<a href="javascript:;" th:onclick="|like(this,2,${cvo.comment.id},${cvo.comment.userId},${post.id});|" class="text-primary">
 										<b th:text="${cvo.likeStatus==1?'已赞':'赞'}">赞</b>(<i th:text="${cvo.likeCount}">1</i>)
@@ -155,26 +140,9 @@
 									<div class="mt-3">
 										<span th:text="${#dates.format(rvo.reply.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</span>
 										<div class="d-inline float-right">
-											<a href="#delReply" data-toggle="modal" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')">删除</a>
-											<a href="#delReply" data-toggle="modal" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==rvo.reply.userId}" sec:authorize="hasAnyAuthority('user')">删除</a>
+											<a href="javascript:;" class="text-primary float-left" sec:authorize="hasAnyAuthority('admin')" th:onclick="|delReply(${rvo.reply.id},${post.id});|">删除</a>
+											<a href="javascript:;" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==rvo.reply.userId}" sec:authorize="hasAnyAuthority('user')" th:onclick="|delReply(${rvo.reply.id},${post.id});|">删除</a>
 											&nbsp;&nbsp;&nbsp;
-											<div class="modal fade" id="delReply" tabindex="-1" role="dialog" aria-labelledby="delReplyLabel">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h6 class="modal-title" id="delReplyLabel" style="color:black!important">提示</h6>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-														</div>
-														<div class="modal-body">
-															<h6 style="color:black!important">您确认要删除这条评论吗？</h6>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-															<button type="button" class="btn btn-primary" th:onclick="|delReply(${rvo.reply.id},${post.id});|">确认</button>
-														</div>
-													</div>
-												</div>
-											</div>
 											<a href="javascript:;" th:onclick="|like(this,2,${rvo.reply.id},${rvo.reply.userId},${post.id});|" class="text-primary">
 												<b th:text="${rvo.likeStatus==1?'已赞':'赞'}">赞</b>(<i th:text="${rvo.likeCount}">1</i>)
 											</a>&nbsp;&nbsp;

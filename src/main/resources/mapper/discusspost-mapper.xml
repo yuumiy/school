@@ -23,7 +23,7 @@
             order by type desc, create_time desc
         </if>
         <if test="orderMode==1">
-            order by type desc, score desc, create_time desc
+            order by score desc, create_time desc
         </if>
         <if test="orderMode==2">
             and kind = 1 order by type desc, create_time desc
@@ -50,6 +50,13 @@
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
+    </select>
+
+    <select id="findDiscussPostRowsByOrderMode" resultType="int">
+        select count(id)
+        from discuss_post
+        where status != 2
+        and kind = #{orderMode}-1
     </select>
 
     <insert id="insertDiscussPost" parameterType="DiscussPost" keyProperty="id">

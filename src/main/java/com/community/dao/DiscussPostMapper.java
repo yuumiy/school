@@ -28,4 +28,6 @@ public interface DiscussPostMapper {
     int updateStatus(@Param("id")int id, @Param("status")int status);
 
     int updateScore(@Param("id")int id, @Param("score")double score);
+
+    int findDiscussPostRowsByOrderMode(@Param("orderMode")int orderMode);
 }

@@ -12,14 +12,14 @@
         user_id, entity_type, entity_id, target_id, content, status, create_time
     </sql>
 
-    <!--升序排列，先评论的在前面。最新评论在末页-->
+    <!--升序排列，老评论在前面，新评论在后面-->
     <select id="selectCommentsByEntity" resultType="Comment">
         select <include refid="selectFields"></include>
         from comment
         where status = 0
         and entity_type = #{entityType}
         and entity_id = #{entityId}
-        order by create_time desc
+        order by create_time asc
         limit #{offset}, #{limit}
     </select>
 
@@ -39,14 +39,16 @@
     <select id="selectCommentById" resultType="Comment">
         select <include refid="selectFields"></include>
         from comment
-        where id=#{id}
+        where id=#{id} and status=0
     </select>
 
     <select id="selectCommentCountById" resultType="int">
         select count(id)
         from comment
         where status = 0
-        and user_id = #{id}
+        <if test="id!=0">
+            and user_id = #{id}
+        </if>
         and entity_type=1
     </select>
 
@@ -54,7 +56,9 @@
         select <include refid="selectFields"></include>
         from comment
         where status = 0
-        and user_id=#{id}
+        <if test="id!=0">
+            and user_id = #{id}
+        </if>
         and entity_type=1
         order by create_time desc
         limit #{offset}, #{limit}
