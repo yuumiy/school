@@ -47,9 +47,13 @@
 									<span th:utext="${map.user.role==0?'学生':'老师'}" style="color:#69757d">user</span>
 									<span class="fa fa-mars" style="font-size:18px;color: deepskyblue;font-weight: bold" th:if="${map.user.sex==0}"></span>
 									<span class="fa fa-venus" style="font-size:18px;color: red;font-weight: bold" th:if="${map.user.sex==1}"></span>
+									<span class="badge badge-secondary bg-muted" th:if="${map.user.type==0}">普通用户</span>
+									<span class="badge badge-secondary bg-success" th:if="${map.user.type==1}">管理员</span>
 									<a href="javascript:;" class="btn btn-primary btn-sm float-right" th:if="${map.user.status==0}" th:onclick="|setActive(${map.user.id});|">激活</a>
 									<a href="javascript:;" th:class="|btn ${map.user.status==2?'btn-secondary':'btn-danger'} btn-sm float-right|" th:onclick="|setDelete(this,${map.user.id});|"
 											th:text="${map.user.status==2?'取消拉黑':'拉黑'}" th:if="${map.user.status!=0}">拉黑</a>
+									<a href="javascript:;" th:class="|btn ${map.user.type==0?'btn-danger':'btn-secondary'} btn-sm float-right|" th:onclick="|setManage(this,${map.user.id});|"
+									   th:text="${map.user.type==0?'管理员':'普通用户'}" th:if="${map.user.status!=0 && map.user.status!=2}" style="margin-right: 15px">设为管理员</a>
 								</h6>
 								<div class="text-muted font-size-12">
 									注册于 <b th:text="${#dates.format(map.user.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>&nbsp;

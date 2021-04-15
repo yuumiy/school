@@ -65,4 +65,8 @@
         limit #{offset}, #{limit}
     </select>
 
+    <update id="updateType">
+        update user set type = #{type} where id = #{id}
+    </update>
+
 </mapper>

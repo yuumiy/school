@@ -29,4 +29,6 @@ public interface UserMapper {
     int findUserRows();
 
     List<User> findUsers(@Param("offset")int offset, @Param("limit")int limit);
+
+    void updateType(@Param("id")int id, @Param("type")int type);
 }

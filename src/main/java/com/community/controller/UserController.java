@@ -382,4 +382,22 @@ public class UserController implements CommunityConstant {
         userService.updateStatus(id, 1);
         return CommunityUtil.getJSONString(0);
     }
+
+    // 设为管理员
+    @RequestMapping(path = "/setManager", method = RequestMethod.POST)
+    @ResponseBody
+    public String setManager(int id) {
+        userService.updateType(id, 1);
+        userService.clearCache(id);
+        return CommunityUtil.getJSONString(0);
+    }
+
+    // 设为普通用户
+    @RequestMapping(path = "/setUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String setUser(int id) {
+        userService.updateType(id, 0);
+        userService.clearCache(id);
+        return CommunityUtil.getJSONString(0);
+    }
 }

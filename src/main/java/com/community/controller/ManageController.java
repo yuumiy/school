@@ -6,6 +6,7 @@ import com.community.entity.Page;
 import com.community.entity.User;
 import com.community.service.*;
 import com.community.util.CommunityConstant;
+import com.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

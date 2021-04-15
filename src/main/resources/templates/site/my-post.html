@@ -45,8 +45,8 @@
 					<ul class="list-unstyled mt-4 pl-3 pr-3">
 						<li class="border-bottom pb-3 mt-4" th:each="map:${discussPosts}">
 							<div class="font-size-16 text-info">
-								<a th:href="@{|/discuss/detail/${map.post.id}|}" class="text-info" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>&nbsp;&nbsp;&nbsp;&nbsp;
-								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.kindName}" class="text-info"></a>
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}" style="color:#69757d;font-size: 16px;font-weight:bold">备战春招，面试刷题跟他复习，一个月全搞定！</a>&nbsp;
+								<span class="badge badge-secondary bg-info" th:utext="${map.post.kindName}"></span>
 								<span class="badge badge-secondary bg-success" th:if="${map.post.category==0}">学生帖</span>
 								<span class="badge badge-secondary bg-muted" th:if="${map.post.category==1}">老师帖</span>
 								<span class="float-right font-size-12 text-muted">

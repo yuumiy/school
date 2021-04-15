@@ -269,21 +269,22 @@ public class UserService implements CommunityConstant {
     }
 
     // 1.优先从缓存中取值
-    private User getCache(int userId) {
+    public User getCache(int userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         return (User) redisTemplate.opsForValue().get(redisKey);
     }
 
     // 2.取不到时初始化缓存数据
-    private User initCache(int userId) {
+    public User initCache(int userId) {
         User user = userMapper.selectById(userId);
         String redisKey = RedisKeyUtil.getUserKey(userId);
+        // 将用户信息存入Redis,失效的时间是60min
         redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
         return user;
     }
 
     // 3.数据变更时清除缓存数据
-    private void clearCache(int userId) {
+    public void clearCache(int userId) {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.delete(redisKey);
     }
@@ -368,5 +369,9 @@ public class UserService implements CommunityConstant {
 
     public void updateStatus(int id, int status) {
         userMapper.updateStatus(id,status);
+    }
+
+    public void updateType(int id, int type) {
+        userMapper.updateType(id,type);
     }
 }
