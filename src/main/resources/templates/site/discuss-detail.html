@@ -151,7 +151,7 @@
 										<div th:id="|huifu-${rvoStat.count}|" class="mt-4 collapse">
 											<form method="post" th:action="@{|/comment/add/${post.id}|}">
 												<div>
-													<input type="text" class="input-size" name="content" th:placeholder="|回复${rvo.user.name}|" required/>
+													<input type="text" class="input-size" name="content" th:placeholder="|回复${rvo.user.name}|" onkeydown='if(event.keyCode==13) return false;' required/>
 													<input type="hidden" name="entityType" value="2">
 													<input type="hidden" name="entityId" th:value="${cvo.comment.id}">
 													<input type="hidden" name="targetId" th:value="${rvo.user.id}">
@@ -167,7 +167,7 @@
 								<li class="pb-3 pt-3">
 									<form method="post" th:action="@{|/comment/add/${post.id}|}">
 										<div>
-											<input type="text" class="input-size" name="content" placeholder="请输入你的观点" required/>
+											<input type="text" class="input-size" name="content" placeholder="请输入你的观点" onkeydown='if(event.keyCode==13) return false;' required/>
 											<input type="hidden" name="entityType" value="2">
 											<input type="hidden" name="entityId" th:value="${cvo.comment.id}">
 										</div>

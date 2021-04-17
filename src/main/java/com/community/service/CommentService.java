@@ -40,7 +40,7 @@ public class CommentService implements CommunityConstant {
         }
 
         // 添加评论
-        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+//        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));   让<>不会转换成html语言
         comment.setContent(sensitiveFilter.filter(comment.getContent()));
         int rows = commentMapper.insertComment(comment);
 

@@ -49,6 +49,9 @@ public class CommentController implements CommunityConstant {
         comment.setUserId(hostHolder.getUser().getId());
         comment.setStatus(0);
         comment.setCreateTime(new Date());
+        String content=comment.getContent();
+        content= content.replaceAll("\r","<br/>");
+        comment.setContent(content);
         commentService.addComment(comment);
 
         //触发评论事件

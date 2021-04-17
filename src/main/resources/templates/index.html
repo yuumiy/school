@@ -69,20 +69,18 @@
 						<li class="nav-item">
 							<a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/index(orderMode=1)}">最热</a>
 						</li>
-						<li class="nav-item" style="margin-left: 150px;">
-							<a th:class="|nav-link ${orderMode==2?'active':''}|" th:href="@{/index(orderMode=2)}">学习笔记</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${orderMode==3?'active':''}|" th:href="@{/index(orderMode=3)}">问题讨论</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${orderMode==4?'active':''}|" th:href="@{/index(orderMode=4)}">资料分享</a>
-						</li>
-						<li class="nav-item">
-							<a th:class="|nav-link ${orderMode==5?'active':''}|" th:href="@{/index(orderMode=5)}">教学安排</a>
-						</li>
+						<div class="dropdown" style="padding-left: 610px">
+							<button type="button" class="btn btn-info dropdown-toggle btn-sm rt-0" data-toggle="dropdown">
+								博客分类
+							</button>
+							<div class="dropdown-menu" style="min-width: 50px">
+								<a class="dropdown-item" th:href="@{/index(orderMode=2)}">学习笔记</a>
+								<a class="dropdown-item" th:href="@{/index(orderMode=3)}">问题讨论</a>
+								<a class="dropdown-item" th:href="@{/index(orderMode=4)}">资料分享</a>
+								<a class="dropdown-item" th:href="@{/index(orderMode=5)}">教学安排</a>
+							</div>
+						</div>
 					</ul>
-
 					<button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal" th:if="${loginUser!=null}">我要发布</button>
 				</div>
 				<!-- 弹出框 -->
@@ -101,7 +99,7 @@
 										<label for="recipient-name" class="col-form-label">标题：</label>
 										<input type="text" class="form-control" id="recipient-name">
 									</div>
-									<div class="form-group" style="width: 130px">
+									<div class="form-group" style="width: 115px">
 										<label for="recipient-name" class="col-form-label">博客类型：</label>
 										<select id="post-type" class="selectpicker show-menu-arrow form-control">
 											<option value="1">学习笔记</option>
