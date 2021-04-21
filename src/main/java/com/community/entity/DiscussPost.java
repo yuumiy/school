@@ -55,11 +55,13 @@ public class DiscussPost {
         if(kind==1)
             return "学习笔记";
         if(kind==2)
-            return "问题讨论";
+            return "问题求助";
         if(kind==3)
             return "资料分享";
         if(kind==4)
             return "教学安排";
+        if(kind==5)
+            return "话题讨论";
         return null;
     }
 

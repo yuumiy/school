@@ -69,15 +69,16 @@
 						<li class="nav-item">
 							<a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/index(orderMode=1)}">最热</a>
 						</li>
-						<div class="dropdown" style="padding-left: 610px">
+						<div class="dropdown" th:style="|${loginUser!=null?'padding-left: 610px':'padding-left: 705px'}|">
 							<button type="button" class="btn btn-info dropdown-toggle btn-sm rt-0" data-toggle="dropdown">
 								博客分类
 							</button>
 							<div class="dropdown-menu" style="min-width: 50px">
 								<a class="dropdown-item" th:href="@{/index(orderMode=2)}">学习笔记</a>
-								<a class="dropdown-item" th:href="@{/index(orderMode=3)}">问题讨论</a>
+								<a class="dropdown-item" th:href="@{/index(orderMode=3)}">问题求助</a>
 								<a class="dropdown-item" th:href="@{/index(orderMode=4)}">资料分享</a>
 								<a class="dropdown-item" th:href="@{/index(orderMode=5)}">教学安排</a>
+								<a class="dropdown-item" th:href="@{/index(orderMode=6)}">话题讨论</a>
 							</div>
 						</div>
 					</ul>
@@ -103,9 +104,10 @@
 										<label for="recipient-name" class="col-form-label">博客类型：</label>
 										<select id="post-type" class="selectpicker show-menu-arrow form-control">
 											<option value="1">学习笔记</option>
-											<option value="2">问题讨论</option>
+											<option value="2">问题求助</option>
 											<option value="3">资料分享</option>
 											<option value="4">教学安排</option>
+											<option value="5">话题讨论</option>
 										</select>
 									</div>
 									<div class="form-group">

@@ -73,8 +73,8 @@ public class ManageController implements CommunityConstant {
         page.setPath("/manage/post");
 
 
-        // 查询某用户发布的博客
-        List<DiscussPost> discussPosts = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit(),6);
+        // 查询某用户发布的博客，这里orderMode=7的意思是，按时间降序
+        List<DiscussPost> discussPosts = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit(),7);
         List<Map<String, Object>> list = new ArrayList<>();
         if (discussPosts != null) {
             for (DiscussPost post : discussPosts) {
