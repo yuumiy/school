@@ -72,7 +72,7 @@
 							<div class="d-inline float-right">
 								<a href="#" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==post.userId}" id="delBtn">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
 								<a href="#" th:onclick="|like(this,1,${post.id},${post.userId},${post.id});|" class="text-primary">
-									<b th:text="${likeStatus==1?'已赞':'赞'}">赞</b> <i th:text="${likeCount}">11</i>
+									<b th:text="${likeStatus==1?'已赞':'赞'}"></b> <i th:text="${likeCount}">11</i>
 								</a>&nbsp;&nbsp;&nbsp;
 								<a href="#replyform" class="text-primary">回复 <i th:text="${post.commentCount}">7</i></a>
 							</div>
@@ -119,7 +119,7 @@
 									<a href="javascript:;" class="text-primary float-left" th:if="${loginUser!=null && loginUser.id==cvo.comment.userId}" sec:authorize="hasAnyAuthority('user')" th:onclick="|delComment(${cvo.comment.id},${post.id});|">删除</a>
 									&nbsp;&nbsp;&nbsp;
 									<a href="javascript:;" th:onclick="|like(this,2,${cvo.comment.id},${cvo.comment.userId},${post.id});|" class="text-primary">
-										<b th:text="${cvo.likeStatus==1?'已赞':'赞'}">赞</b>(<i th:text="${cvo.likeCount}">1</i>)
+										<b th:text="${cvo.likeStatus==1?'已赞':'赞'}"></b>(<i th:text="${cvo.likeCount}">1</i>)
 									</a>&nbsp;&nbsp;
 									<a th:href="|#huifu1-${page.offset + cvoStat.count}|" class="text-primary">回复(<i th:text="${cvo.replyCount}">2</i>)</a>
 								</div>

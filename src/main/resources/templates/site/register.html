@@ -74,7 +74,7 @@
 							<input type="password"
 								   th:class="|form-control ${passwordMsg!=null?'is-invalid':''}|"
 								   th:value="${user!=null?user.password:''}"
-								   id="password" name="password" placeholder="请输入您的密码！" required>
+								   id="password" name="password" placeholder="至少6位，字符无限制！" required>
 							<div class="invalid-feedback" th:text="${passwordMsg}">
 								密码长度不能小于8位!
 							</div>							
@@ -86,7 +86,7 @@
 							<input type="password"
 								   th:class="|form-control ${confirmPasswordMsg!=null?'is-invalid':''}|"
 								   th:value="${param.confirmPassword}"
-								   id="confirmPassword" name="confirmPassword" placeholder="请再次输入密码！" required>
+								   id="confirmPassword" name="confirmPassword" placeholder="请输入确认密码！" required>
 							<div class="invalid-feedback" th:text="${confirmPasswordMsg}">
 								两次输入的密码不一致!
 							</div>
@@ -98,7 +98,7 @@
 							<input type="email"
 								   th:class="|form-control ${emailMsg!=null?'is-invalid':''}|"
 								   th:value="${user!=null?user.email:''}"
-								   id="email" name="email" placeholder="请输入您的邮箱！" required>
+								   id="email" name="email" placeholder="需要通过邮件激活账户！" required>
 							<div class="invalid-feedback" th:text="${emailMsg}">
 								该邮箱已注册!
 							</div>

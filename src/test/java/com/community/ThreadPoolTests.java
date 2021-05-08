@@ -1,6 +1,5 @@
 package com.community;
 
-import com.community.service.AlphaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -38,9 +37,6 @@ public class ThreadPoolTests {
     // Spring可执行定时任务的线程池
     @Autowired
     private ThreadPoolTaskScheduler taskScheduler;
-
-    @Autowired
-    private AlphaService alphaService;
 
     private void sleep(long m) {
         try {
@@ -122,7 +118,7 @@ public class ThreadPoolTests {
     @Test
     public void testThreadPoolTaskExecutorSimple() {
         for (int i = 0; i < 10; i++) {
-            alphaService.execute1();
+//            alphaService.execute1();
         }
 
         //让线程阻塞10s

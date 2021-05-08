@@ -131,8 +131,7 @@ public class LoginController implements CommunityConstant {
     public String login(String username, String password, String code, boolean rememberme,
                         Model model, /*HttpSession session,*/ HttpServletResponse response,
                         @CookieValue("kaptchaOwner") String kaptchaOwner) {
-        // 检查验证码
-        // String kaptcha = (String) session.getAttribute("kaptcha");
+
         String kaptcha = null;
         try {
             if (StringUtils.isNotBlank(kaptchaOwner)) {
